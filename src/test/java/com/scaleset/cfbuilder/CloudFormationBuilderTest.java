@@ -5,7 +5,6 @@ import com.scaleset.cfbuilder.core.Parameter;
 import com.scaleset.cfbuilder.core.Template;
 import com.scaleset.cfbuilder.ec2.Instance;
 import com.scaleset.cfbuilder.ec2.SecurityGroup;
-import com.scaleset.cfbuilder.ec2.SecurityGroupIngress;
 import com.scaleset.cfbuilder.rds.DBInstance;
 import org.junit.Test;
 
@@ -57,10 +56,10 @@ public class CloudFormationBuilderTest extends Module {
 
             resource(DBInstance.class, "MySQLDatabase")
                     .engine("MySQL")
-                    .dbName("mydatabase")
+                    .dBName("mydatabase")
                     .masterUsername("root")
                     .masterUserPassword("abcd1234")
-                    .dbInstanceClass("db.t2.micro")
+                    .dBInstanceClass("db.t2.micro")
                     .allocatedStorage(20)
                     .storageType("gp2")
                     .vpcSecurityGroups(dbEc2SecurityGroupId);

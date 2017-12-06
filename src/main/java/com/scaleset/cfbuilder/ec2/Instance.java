@@ -28,4 +28,7 @@ public interface Instance extends Taggable {
 
     Instance userData(Object userData);
 
+    // Metadata
+
+    Instance setMetadata(Metadata metadata);
 }

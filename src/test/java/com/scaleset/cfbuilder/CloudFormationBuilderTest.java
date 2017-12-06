@@ -2,10 +2,11 @@ package com.scaleset.cfbuilder;
 
 import com.scaleset.cfbuilder.core.Module;
 import com.scaleset.cfbuilder.core.Template;
+import com.scaleset.cfbuilder.ec2.metadata.CFNInit;
 import com.scaleset.cfbuilder.ec2.Instance;
-import com.scaleset.cfbuilder.ec2.Metadata;
 import com.scaleset.cfbuilder.ec2.SecurityGroup;
-import com.scaleset.cfbuilder.ec2.SecurityGroupIngress;
+import com.scaleset.cfbuilder.ec2.metadata.Command;
+import com.scaleset.cfbuilder.ec2.metadata.Config;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
@@ -41,35 +42,41 @@ public class CloudFormationBuilderTest extends Module{
     }
 
     class TestModule extends Module {
+        private static final String KEYNAME_DESCRIPTION = "Name of an existing EC2 KeyPair to enable SSH access to the instances";
+        private static final String KEYNAME_TYPE = "AWS::EC2::KeyPair::KeyName";
+        private static final String KEYNAME_CONSTRAINT_DESCRIPTION = "must be the name of an existing EC2 KeyPair.";
+
+        private static final String CFNINIT_CONFIGSET = "InstallAndRun";
+        private static final String CFNINIT_CONFIG_INSTALL = "Install";
+        private static final String CFNINIT_CONFIG_CONFIGURE = "Configure";
 
         public void build() throws Exception {
 
             Object keyName = option("KeyName").orElseGet(
-                    () -> strParam("KeyName").type("AWS::EC2::KeyPair::KeyName").description("Name of an existing EC2 KeyPair to enable SSH access to the instances").constraintDescription("must be the name of an existing EC2 KeyPair."));
+                    () -> strParam("KeyName").type(KEYNAME_TYPE).description(KEYNAME_DESCRIPTION).constraintDescription(KEYNAME_CONSTRAINT_DESCRIPTION));
 
-            Object clusterName = option("clusterName").orElse("elasticsearch");
             Object cidrIp = "0.0.0.0/0";
             Object keyNameVar = template.ref("KeyName");
-            Object imageId = template.ref("ImageId");
-            Object az = template.ref("MyAZ");
-            Object instanceProfile = ref("InstanceProfile");
-            Object vpcId = template.ref("VpcId");
-            Metadata metadata = new Metadata();
+            Config install = new Config(CFNINIT_CONFIG_INSTALL);
+            Config configure = new Config(CFNINIT_CONFIG_CONFIGURE).putCommand(new Command("configure_myphp", "sh /tmp/configure_myhp.sh"));
+            CFNInit cfnInit = new CFNInit(CFNINIT_CONFIGSET).addConfig(CFNINIT_CONFIGSET, install).addConfig(CFNINIT_CONFIGSET, configure);
 
             SecurityGroup webServerSecurityGroup = resource(SecurityGroup.class, "WebServerSecurityGroup").groupDescription("Enable ports 80 and 22")
                     .ingress(ingress -> ingress.cidrIp(cidrIp), "tcp", 80, 22);
 
             Object groupId = webServerSecurityGroup.fnGetAtt("GroupId");
 
-            Instance webServerInstance = resource(Instance.class, "WebServerInstance").setMetadata(metadata).imageId("ami-0def3275")
+            Instance webServerInstance = resource(Instance.class, "WebServerInstance")
+                    .addCFNInit(cfnInit)
+                    .imageId("ami-0def3275")
                     .instanceType("t2.micro")
                     .securityGroupIds(webServerSecurityGroup)
-                    .keyName(keyName);
+                    .keyName(keyNameVar);
 
 
-            Object value = webServerInstance.fnGetAtt("PublicDnsName");
+            Object publicDNSName = webServerInstance.fnGetAtt("PublicDnsName");
 
-            output("websiteURL", value, "URL for newly created LAMP stack");
+            output("websiteURL", publicDNSName, "URL for newly created LAMP stack");
         }
     }
 }

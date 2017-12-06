@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
 
-public class CloudFormationBuilderTest extends Module{
+public class CloudFormationBuilderTest extends Module {
 
     @Test
     public void simpleTest() throws Exception {
@@ -29,7 +29,7 @@ public class CloudFormationBuilderTest extends Module{
         new CloudFormationBuilderTest.TestModule().id("").template(lampTemplate).build();
 
         assertNotNull(lampTemplate);
-        System.err.println(lampTemplate.toString());
+        System.err.println(lampTemplate.toString(true));
 
 //        ObjectMapper mapper = new ObjectMapper().registerModule(new CloudFormationJsonModule().scanTypes());
 //        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.UPPER_CAMEL_CASE);

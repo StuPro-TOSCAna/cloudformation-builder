@@ -25,30 +25,21 @@ public class CloudFormationBuilderTest extends Module {
     class TestModule extends Module {
         private static final String KEYNAME_DESCRIPTION = "Name of an existing EC2 KeyPair to enable SSH access to the instances";
         private static final String KEYNAME_TYPE = "AWS::EC2::KeyPair::KeyName";
-        private static final String KEYNAME_CONSTRAINTDESCRIPTION = "must be the name of an existing EC2 KeyPair.";
-        private static final String IMAGEID_DESCRIPTION = "An existing ImageId";
-        
+        private static final String KEYNAME_CONSTRAINT_DESCRIPTION = "must be the name of an existing EC2 KeyPair.";
+
+
         public void build() throws Exception {
             
             Parameter keyName = (Parameter) option("KeyName").orElseGet(
                 () -> strParam("KeyName")
                     .type(KEYNAME_TYPE)
                     .description(KEYNAME_DESCRIPTION)
-                    .constraintDescription(KEYNAME_CONSTRAINTDESCRIPTION));
+                    .constraintDescription(KEYNAME_CONSTRAINT_DESCRIPTION));
 
-            Parameter imageId = (Parameter) option("ImageId").orElseGet(
-                () -> strParam("ImageId")
-                    .description(IMAGEID_DESCRIPTION));
-            
-            Object clusterName = option("clusterName").orElse("elasticsearch");
             Object cidrIp = "0.0.0.0/0";
             Object keyNameVar = template.ref("KeyName");
-            Object imageIdVar = template.ref("ImageId");
-            Object az = template.ref("MyAZ");
-            Object instanceProfile = ref("InstanceProfile");
-            Object vpcId = template.ref("VpcId");
 
-            SecurityGroup webServerSecurityGroup = resource(SecurityGroup.class, "WebServerSecurityGroup")
+            SecurityGroup webServerSecurityGroup = resource(SecurityGroup.class, "WebServerSecurityGroup").groupDescription("Enable ports 80 and 22")
                 .ingress(ingress -> ingress.cidrIp(cidrIp), "tcp", 80, 22);
 
             Object groupId = webServerSecurityGroup.fnGetAtt("GroupId");
@@ -59,24 +50,15 @@ public class CloudFormationBuilderTest extends Module {
                 .ipProtocol("tcp")
                 .port(9300);
 
-            resource(Instance.class, "Instance")
-                .name(ns("Instance"))
-                .availabilityZone(az)
-                .keyName(keyNameVar)
-                .imageId(imageIdVar)
-                .instanceProfile(instanceProfile)
-                .instanceType(keyName)
-                .securityGroupIds(webServerSecurityGroup);
-            
-            resource(Instance.class, "WebServerInstance")
+            Instance webServerInstance = resource(Instance.class, "WebServerInstance")
                 .imageId("ami-0def3275")
                 .instanceType("t2.micro")
                 .securityGroupIds(webServerSecurityGroup)
-                .keyName(keyName);
-            
-            Object value = option("Value");
-            
-            output("websiteURL", value, "URL for newly created LAMP stack");
+                .keyName(keyNameVar);
+
+            Object publicDNSName = webServerInstance.fnGetAtt("PublicDnsName");
+
+            output("websiteURL", publicDNSName, "URL for newly created LAMP stack");
         }
     }
 }

@@ -7,7 +7,7 @@ import com.scaleset.cfbuilder.ec2.SecurityGroup;
 @Type("AWS::RDS::DBInstance")
 public interface DBInstance extends Taggable {
 
-    DBInstance engine(Object engine);
+    DBInstance engine(String engine);
 
     DBInstance dbName(String dbName);
 
@@ -15,11 +15,11 @@ public interface DBInstance extends Taggable {
 
     DBInstance masterUserPassword(String masterUserPassword);
 
-    DBInstance dbInstanceClass(Object dbInstanceClass);
+    DBInstance dbInstanceClass(String dbInstanceClass);
 
     DBInstance allocatedStorage(int allocatedStorage);
 
-    DBInstance storageType(Object storageType);
+    DBInstance storageType(String storageType);
 
     DBInstance vpcSecurityGroups(Object... vpcSecurityGroup);
 

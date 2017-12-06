@@ -3,13 +3,14 @@ package com.scaleset.cfbuilder;
 import com.scaleset.cfbuilder.core.Module;
 import com.scaleset.cfbuilder.core.Template;
 import com.scaleset.cfbuilder.ec2.Instance;
+import com.scaleset.cfbuilder.ec2.Metadata;
 import com.scaleset.cfbuilder.ec2.SecurityGroup;
 import com.scaleset.cfbuilder.ec2.SecurityGroupIngress;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
 
-public class CloudFormationBuilderTest extends Module {
+public class CloudFormationBuilderTest extends Module{
 
     @Test
     public void simpleTest() throws Exception {
@@ -53,13 +54,14 @@ public class CloudFormationBuilderTest extends Module {
             Object az = template.ref("MyAZ");
             Object instanceProfile = ref("InstanceProfile");
             Object vpcId = template.ref("VpcId");
+            Metadata metadata = new Metadata();
 
             SecurityGroup webServerSecurityGroup = resource(SecurityGroup.class, "WebServerSecurityGroup").groupDescription("Enable ports 80 and 22")
                     .ingress(ingress -> ingress.cidrIp(cidrIp), "tcp", 80, 22);
 
             Object groupId = webServerSecurityGroup.fnGetAtt("GroupId");
 
-            Instance webServerInstance = resource(Instance.class, "WebServerInstance").imageId("ami-0def3275")
+            Instance webServerInstance = resource(Instance.class, "WebServerInstance").setMetadata(metadata).imageId("ami-0def3275")
                     .instanceType("t2.micro")
                     .securityGroupIds(webServerSecurityGroup)
                     .keyName(keyName);

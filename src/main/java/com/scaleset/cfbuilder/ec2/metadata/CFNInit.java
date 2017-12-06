@@ -7,12 +7,9 @@ import java.util.Map;
 
 public class CFNInit {
 
-    public Map<String, Configs> configs;
+    public Map<String, Config> configs;
 
     public ConfigSets configSets;
-
-    @JsonIgnore
-    //public Map<String, ArrayList<String>> configSets;
 
     /**
      * Add the configset with a list
@@ -20,9 +17,6 @@ public class CFNInit {
      */
     public CFNInit(String configSet) {
         this.configs = new HashMap<>();
-        //this.configSets = new HashMap<>();
-        //this.configSets.put(configSet, new ArrayList<>());
-        //this.configs.put(CONFIG_SETS, new ConfigSets(configSet));
         this.configSets = new ConfigSets(configSet);
 
     }
@@ -40,7 +34,7 @@ public class CFNInit {
         return this;
     }
 
-    public Map<String, Configs> getConfigs() {
+    public Map<String, Config> getConfigs() {
         return this.configs;
     }
 

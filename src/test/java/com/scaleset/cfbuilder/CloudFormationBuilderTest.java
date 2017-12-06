@@ -49,14 +49,6 @@ public class CloudFormationBuilderTest extends Module {
                     .groupDescription("Open database for access")
                     .ingress(ingress -> ingress.sourceSecurityGroupName(webServerSecurityGroupName), "tcp", 3306);
 
-            Object webServerSecurityGroupId = webServerSecurityGroup.fnGetAtt("GroupId");
-
-            resource(SecurityGroupIngress.class, "SelfReferenceIngress")
-                .sourceSecurityGroupId(webServerSecurityGroupId)
-                .groupId(webServerSecurityGroupId)
-                .ipProtocol("tcp")
-                .port(9300);
-
             Instance webServerInstance = resource(Instance.class, "WebServerInstance")
                 .imageId("ami-0def3275")
                 .instanceType("t2.micro")

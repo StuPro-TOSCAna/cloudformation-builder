@@ -11,7 +11,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertNotNull;
 
 public class CloudFormationBuilderTest extends Module {
-    
+
     @Test
     public void testTemplateBuilding() throws Exception {
         Template lampTemplate = new Template();
@@ -19,7 +19,8 @@ public class CloudFormationBuilderTest extends Module {
         new CloudFormationBuilderTest.TestModule().id("").template(lampTemplate).build();
 
         assertNotNull(lampTemplate);
-        System.err.println(lampTemplate.toString());
+
+        System.err.println(lampTemplate.toString(true));
     }
 
     class TestModule extends Module {

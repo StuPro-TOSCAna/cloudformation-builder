@@ -9,37 +9,18 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
 
-public class CloudFormationBuilderTest extends Module{
+public class CloudFormationBuilderTest extends Module {
 
     @Test
-    public void simpleTest() throws Exception {
+    public void metadataTest() throws Exception {
         Template lampTemplate = new Template();
-//        Module testModule = new Module();
-
-        // Build Resources
-//        testModule.resource(WebServerInstance.class, "WebServerInstance")
-//            .name
-//        testModule.resource(WebServerInstance.class, "WebServerInstance").na;
-        // Set Parameters
-//        lampTemplate.strParam("KeyName").description("Name of an existing EC2 KeyPair to enable SSH access to the instances").type("AWS::EC2::KeyPair::KeyName").constraintDescription("must be the name of an existing EC2 KeyPair.");
-//        // Set Resources
-//        lampTemplate.resource(WebServerInstance.class, ns("WebServerInstance"));
-
-
-        new CloudFormationBuilderTest.TestModule().id("").template(lampTemplate).build();
+        new MetadataModule().id("").template(lampTemplate).build();
 
         assertNotNull(lampTemplate);
         System.err.println(lampTemplate.toString(true));
-
-//        ObjectMapper mapper = new ObjectMapper().registerModule(new CloudFormationJsonModule().scanTypes());
-//        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.UPPER_CAMEL_CASE);
-//
-//        Template template = mapper.readValue(lampTemplate.toString(), Template.class);
-//        assertNotNull(template);
-//        System.err.println(template.toString());
     }
 
-    class TestModule extends Module {
+    class MetadataModule extends Module {
         private static final String KEYNAME_DESCRIPTION = "Name of an existing EC2 KeyPair to enable SSH access to the instances";
         private static final String KEYNAME_TYPE = "AWS::EC2::KeyPair::KeyName";
         private static final String KEYNAME_CONSTRAINT_DESCRIPTION = "must be the name of an existing EC2 KeyPair.";
@@ -58,17 +39,24 @@ public class CloudFormationBuilderTest extends Module{
 
             CFNPackage cfnPackage = new CFNPackage("apt")
                     .addPackage("apache2")
-                    .addPackage("php");
+                    .addPackage("php")
+                    .addPackage("libapache2-mod-php7.0");
+
             CFNFile indexFile = new CFNFile("/var/www/html/index.php")
                     .setContent("<php?\nphpinfo()\n?>")
                     .setMode("000600")
                     .setOwner("www-data")
                     .setGroup("www-data");
 
-            CFNService service = new CFNService();
+            CFNService service = new CFNService().addService(new SimpleService("apache2")
+                    .setEnabled(true)
+                    .setEnsureRunning(true)
+                    .addPackage("apt", "libapache2-mod-php7.0"));
+
             Config install = new Config(CFNINIT_CONFIG_INSTALL)
                     .putFile(indexFile)
-                    .putPackage(cfnPackage);
+                    .putPackage(cfnPackage)
+                    .putService(service);
 
             CFNCommand configure_mysql = new CFNCommand("configure_myphp", "sh /tmp/configure_myphpapp.sh")
                     .addEnv("database_name", "mydatabase");

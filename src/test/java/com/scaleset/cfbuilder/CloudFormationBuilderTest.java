@@ -2,12 +2,9 @@ package com.scaleset.cfbuilder;
 
 import com.scaleset.cfbuilder.core.Module;
 import com.scaleset.cfbuilder.core.Template;
-import com.scaleset.cfbuilder.ec2.metadata.CFNFile;
-import com.scaleset.cfbuilder.ec2.metadata.CFNInit;
 import com.scaleset.cfbuilder.ec2.Instance;
 import com.scaleset.cfbuilder.ec2.SecurityGroup;
-import com.scaleset.cfbuilder.ec2.metadata.CFNCommand;
-import com.scaleset.cfbuilder.ec2.metadata.Config;
+import com.scaleset.cfbuilder.ec2.metadata.*;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
@@ -59,13 +56,20 @@ public class CloudFormationBuilderTest extends Module{
             Object cidrIp = "0.0.0.0/0";
             Object keyNameVar = template.ref("KeyName");
 
+            CFNPackage cfnPackage = new CFNPackage("apt")
+                    .addPackage("apache2")
+                    .addPackage("php");
             CFNFile indexFile = new CFNFile("/var/www/html/index.php")
                     .setContent("<php?\nphpinfo()\n?>")
                     .setMode("000600")
                     .setOwner("www-data")
                     .setGroup("www-data");
+
+            CFNService service = new CFNService();
             Config install = new Config(CFNINIT_CONFIG_INSTALL)
-                    .putFile(indexFile);
+                    .putFile(indexFile)
+                    .putPackage(cfnPackage);
+
             CFNCommand configure_mysql = new CFNCommand("configure_myphp", "sh /tmp/configure_myphpapp.sh")
                     .addEnv("database_name", "mydatabase");
             Config configure = new Config(CFNINIT_CONFIG_CONFIGURE).putCommand(configure_mysql);

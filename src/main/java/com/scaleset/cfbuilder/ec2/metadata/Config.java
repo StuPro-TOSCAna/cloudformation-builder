@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @JsonPropertyOrder({"packages", "files", "commands", "services"})
-public class Config implements Configs {
+public class Config{
 
     @JsonProperty("packages")
     public Map<String, CFNPackage> packages;

@@ -21,7 +21,7 @@ public interface DBInstance extends Taggable {
 
     DBInstance storageType(Object storageType);
 
-    DBInstance vpcSecurityGroups(SecurityGroup... values);
+    DBInstance vpcSecurityGroups(Object... vpcSecurityGroup);
 
     default DBInstance name(String name) {
         tag("Name", name);

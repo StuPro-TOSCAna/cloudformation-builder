@@ -24,7 +24,7 @@ public class CFNCommand {
     @JsonIgnore
     public String id;
 
-    public CFNCommand(String id, String command){
+    public CFNCommand(String id, String command) {
         this.id = id;
         this.command = command;
         this.env = new HashMap<>();

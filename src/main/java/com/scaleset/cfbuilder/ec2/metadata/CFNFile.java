@@ -32,9 +32,10 @@ public class CFNFile {
 
     /**
      * The id is the path where the file will be stored
+     *
      * @param id
      */
-    public CFNFile(String id){
+    public CFNFile(String id) {
         this.id = id;
     }
 
@@ -63,7 +64,7 @@ public class CFNFile {
         return this;
     }
 
-    public String getId(){
+    public String getId() {
         return this.id;
     }
 }

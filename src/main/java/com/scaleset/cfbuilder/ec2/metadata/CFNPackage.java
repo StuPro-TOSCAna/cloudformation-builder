@@ -17,21 +17,21 @@ public class CFNPackage {
     @JsonIgnore
     public String id;
 
-    public CFNPackage(String id){
+    public CFNPackage(String id) {
         this.id = id;
         this.packages = new HashMap<>();
     }
 
-    public String getId(){
+    public String getId() {
         return this.id;
     }
 
-    public CFNPackage addPackage(String packageName){
+    public CFNPackage addPackage(String packageName) {
         this.packages.put(packageName, new ArrayList<>());
         return this;
     }
 
-    public CFNPackage addPackage(String packageName, String version){
+    public CFNPackage addPackage(String packageName, String version) {
         ArrayList<String> list = new ArrayList<>();
         list.add(version);
         this.packages.put(packageName, list);

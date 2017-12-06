@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @JsonPropertyOrder({"packages", "files", "commands", "services"})
-public class Config{
+public class Config {
 
     @JsonProperty("packages")
     public Map<String, CFNPackage> packages;
@@ -35,7 +35,7 @@ public class Config{
         this.services = new HashMap<>();
     }
 
-    public Config putCommand(CFNCommand command){
+    public Config putCommand(CFNCommand command) {
         this.commands.put(command.getId(), command);
         return this;
     }

@@ -1,6 +1,5 @@
 package com.scaleset.cfbuilder.ec2.metadata;
 
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +11,7 @@ public class CFNInit {
 
     /**
      * Add the configset with a list
+     *
      * @param configSet
      */
     public CFNInit(String configSet) {

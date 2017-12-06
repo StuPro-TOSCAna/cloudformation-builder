@@ -25,11 +25,11 @@ public class ConfigSets {
         }
     }
 
-    public Map<String, List<String>> getSets(){
+    public Map<String, List<String>> getSets() {
         return this.sets;
     }
 
-    public String getId(){
+    public String getId() {
         return this.id;
     }
 }

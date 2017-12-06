@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.scaleset.cfbuilder.annotations.Type;
 import com.scaleset.cfbuilder.ec2.metadata.CFNInit;
+import com.scaleset.cfbuilder.ec2.metadata.ConfigSets;
 import com.scaleset.cfbuilder.ec2.metadata.Configs;
 
 import java.lang.invoke.MethodHandles;
@@ -90,6 +91,9 @@ public class ResourceInvocationHandler<T extends Resource> implements Invocation
             JsonNode valueNode = toNode(cfnInit);
             if (!valueNode.isNull()) {
                 ObjectNode cfnInitNode= this.metadata.putObject("AWS::CloudFormation::Init");
+                ConfigSets configSets = cfnInit.getConfigSets();
+                ObjectNode configSetsNode = cfnInitNode.putObject(configSets.getId());
+                configSets.getSets().forEach((name, list) -> configSetsNode.set(name, toNode(list)));
                 Map<String, Configs> configs = cfnInit.getConfigs();
                 configs.forEach((name, config) -> cfnInitNode.set(name, toNode(config)));
             }

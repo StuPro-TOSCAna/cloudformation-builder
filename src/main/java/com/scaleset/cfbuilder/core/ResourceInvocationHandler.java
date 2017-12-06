@@ -7,13 +7,15 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.scaleset.cfbuilder.annotations.Type;
-import com.scaleset.cfbuilder.ec2.Metadata;
+import com.scaleset.cfbuilder.ec2.metadata.CFNInit;
+import com.scaleset.cfbuilder.ec2.metadata.Configs;
 
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.Map;
 
 public class ResourceInvocationHandler<T extends Resource> implements InvocationHandler {
 
@@ -83,14 +85,15 @@ public class ResourceInvocationHandler<T extends Resource> implements Invocation
 
     protected Object doSetter(Object proxy, Method method, Object[] args) {
         Object result = null;
-        //check if metadata
-        if (args[0] instanceof Metadata) {
-            Metadata metadata = (Metadata) args[0];
-            JsonNode valueNode = toNode(metadata);
+        if (args[0] instanceof CFNInit) { //is metadata
+            CFNInit cfnInit = (CFNInit) args[0];
+            JsonNode valueNode = toNode(cfnInit);
             if (!valueNode.isNull()) {
-                this.metadata.set("AWS::CloudFormation::Init", valueNode);
+                ObjectNode cfnInitNode= this.metadata.putObject("AWS::CloudFormation::Init");
+                Map<String, Configs> configs = cfnInit.getConfigs();
+                configs.forEach((name, config) -> cfnInitNode.set(name, toNode(config)));
             }
-        } else {
+        } else { //is property
             String propertyName = getPropertyName(method);
 
             // We know args.length is 1 from isSetter check method

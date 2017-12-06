@@ -1,8 +1,8 @@
 package com.scaleset.cfbuilder.ec2;
 
 import com.scaleset.cfbuilder.annotations.Type;
-import com.scaleset.cfbuilder.core.Resource;
 import com.scaleset.cfbuilder.core.Taggable;
+import com.scaleset.cfbuilder.ec2.metadata.CFNInit;
 
 @Type("AWS::EC2::Instance")
 public interface Instance extends Taggable {
@@ -28,7 +28,7 @@ public interface Instance extends Taggable {
 
     Instance userData(Object userData);
 
-    // Metadata
+    // CFNInit
 
-    Instance setMetadata(Metadata metadata);
+    Instance addCFNInit(CFNInit cfnInit);
 }

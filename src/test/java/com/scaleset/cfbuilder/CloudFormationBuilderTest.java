@@ -62,7 +62,7 @@ public class CloudFormationBuilderTest extends Module {
                     .dBInstanceClass("db.t2.micro")
                     .allocatedStorage(20)
                     .storageType("gp2")
-                    .vpcSecurityGroups(dbEc2SecurityGroupId);
+                    .vPCSecurityGroups(dbEc2SecurityGroupId);
 
             Object publicDNSName = webServerInstance.fnGetAtt("PublicDnsName");
 

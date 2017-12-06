@@ -2,10 +2,11 @@ package com.scaleset.cfbuilder;
 
 import com.scaleset.cfbuilder.core.Module;
 import com.scaleset.cfbuilder.core.Template;
+import com.scaleset.cfbuilder.ec2.metadata.CFNFile;
 import com.scaleset.cfbuilder.ec2.metadata.CFNInit;
 import com.scaleset.cfbuilder.ec2.Instance;
 import com.scaleset.cfbuilder.ec2.SecurityGroup;
-import com.scaleset.cfbuilder.ec2.metadata.Command;
+import com.scaleset.cfbuilder.ec2.metadata.CFNCommand;
 import com.scaleset.cfbuilder.ec2.metadata.Config;
 import org.junit.Test;
 
@@ -57,11 +58,23 @@ public class CloudFormationBuilderTest extends Module{
 
             Object cidrIp = "0.0.0.0/0";
             Object keyNameVar = template.ref("KeyName");
-            Config install = new Config(CFNINIT_CONFIG_INSTALL);
-            Config configure = new Config(CFNINIT_CONFIG_CONFIGURE).putCommand(new Command("configure_myphp", "sh /tmp/configure_myhp.sh"));
-            CFNInit cfnInit = new CFNInit(CFNINIT_CONFIGSET).addConfig(CFNINIT_CONFIGSET, install).addConfig(CFNINIT_CONFIGSET, configure);
 
-            SecurityGroup webServerSecurityGroup = resource(SecurityGroup.class, "WebServerSecurityGroup").groupDescription("Enable ports 80 and 22")
+            CFNFile indexFile = new CFNFile("/var/www/html/index.php")
+                    .setContent("<php?\nphpinfo()\n?>")
+                    .setMode("000600")
+                    .setOwner("www-data")
+                    .setGroup("www-data");
+            Config install = new Config(CFNINIT_CONFIG_INSTALL)
+                    .putFile(indexFile);
+            CFNCommand configure_mysql = new CFNCommand("configure_myphp", "sh /tmp/configure_myphpapp.sh")
+                    .addEnv("database_name", "mydatabase");
+            Config configure = new Config(CFNINIT_CONFIG_CONFIGURE).putCommand(configure_mysql);
+            CFNInit cfnInit = new CFNInit(CFNINIT_CONFIGSET)
+                    .addConfig(CFNINIT_CONFIGSET, install)
+                    .addConfig(CFNINIT_CONFIGSET, configure);
+
+            SecurityGroup webServerSecurityGroup = resource(SecurityGroup.class, "WebServerSecurityGroup")
+                    .groupDescription("Enable ports 80 and 22")
                     .ingress(ingress -> ingress.cidrIp(cidrIp), "tcp", 80, 22);
 
             Object groupId = webServerSecurityGroup.fnGetAtt("GroupId");

@@ -40,6 +40,7 @@ public class CloudFormationBuilderTest extends Module {
             Object cidrIp = "0.0.0.0/0";
             Object keyNameVar = template.ref("KeyName");
             Object webServerSecurityGroupName = template.ref("WebServerSecurityGroup");
+            Object dbEc2SecurityGroupId = template.fnGetAtt("DBEC2SecurityGroup", "GroupId");
 
             SecurityGroup webServerSecurityGroup = resource(SecurityGroup.class, "WebServerSecurityGroup")
                     .groupDescription("Enable ports 80 and 22")
@@ -49,8 +50,6 @@ public class CloudFormationBuilderTest extends Module {
                     .ingress(ingress -> ingress.sourceSecurityGroupName(webServerSecurityGroupName), "tcp", 3306);
 
             Object webServerSecurityGroupId = webServerSecurityGroup.fnGetAtt("GroupId");
-            // This must be changed when !GetAtt functionality gets added
-            Object dbEc2SecurityGroupId = "!GetAtt DBEC2SecurityGroup.GroupId";
 
             resource(SecurityGroupIngress.class, "SelfReferenceIngress")
                 .sourceSecurityGroupId(webServerSecurityGroupId)

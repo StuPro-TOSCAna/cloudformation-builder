@@ -19,16 +19,17 @@ public interface Instance extends Taggable {
 
     Instance securityGroupIds(Object... values);
 
-    default Instance name(String name) {
-        tag("Name", name);
-        return this;
-    }
-
     Instance subnetId(Object subnetId);
 
     Instance userData(Object userData);
 
-    // CFNInit
+    // non property additions
+
+
+    default Instance name(String name) {
+        tag("Name", name);
+        return this;
+    }
 
     Instance addCFNInit(CFNInit cfnInit);
 }

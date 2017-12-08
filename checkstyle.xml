@@ -8,7 +8,7 @@
         <module name="AvoidStarImport"/>
         <module name="IllegalImport"/>
         <module name="ImportOrder">
-            <property name="groups" value="java,javax,org.opentosca.toscana,*"/>
+            <property name="groups" value="java,javax,com.scaleset.cfbuilder,*"/>
             <property name="ordered" value="true"/>
             <property name="separated" value="true"/>
             <property name="option" value="bottom"/>

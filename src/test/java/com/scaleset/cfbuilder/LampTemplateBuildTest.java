@@ -1,10 +1,12 @@
 package com.scaleset.cfbuilder;
 
+import com.scaleset.cfbuilder.core.Fn;
 import com.scaleset.cfbuilder.core.Module;
 import com.scaleset.cfbuilder.core.Parameter;
 import com.scaleset.cfbuilder.core.Template;
 import com.scaleset.cfbuilder.ec2.Instance;
 import com.scaleset.cfbuilder.ec2.SecurityGroup;
+import com.scaleset.cfbuilder.ec2.UserData;
 import com.scaleset.cfbuilder.ec2.metadata.*;
 import com.scaleset.cfbuilder.rds.DBInstance;
 import org.junit.Test;
@@ -27,9 +29,9 @@ public class LampTemplateBuildTest extends Module {
         System.err.println(lampTemplate.toString(true));
 
         //TODO remove this
-//        try (PrintStream out = new PrintStream(new FileOutputStream("lamp-template.yaml"))) {
-//            out.print(lampTemplate.toString(true));
-//        }
+        try (PrintStream out = new PrintStream(new FileOutputStream("lamp-template.yaml"))) {
+            out.print(lampTemplate.toString(true));
+        }
     }
 
     class LampModule extends Module {
@@ -58,9 +60,11 @@ public class LampTemplateBuildTest extends Module {
                 mySQLCredentialsFileContent += new Scanner(new File("src/test/resources/lamp-template-build-test/mysql-credentials.php"))
                         .useDelimiter("\\Z")
                         .next();
+                configureMyPHPAppFileContent = "|\n";
                 configureMyPHPAppFileContent = new Scanner(new File("src/test/resources/lamp-template-build-test/configure_myphpapp.sh"))
                         .useDelimiter("\\Z")
                         .next();
+                mySQLDBMSConfigureFileContent = "|\n";
                 mySQLDBMSConfigureFileContent = new Scanner(new File("src/test/resources/lamp-template-build-test/mysql_dbms_configure.sh"))
                         .useDelimiter("\\Z")
                         .next();
@@ -111,13 +115,13 @@ public class LampTemplateBuildTest extends Module {
                     .setGroup("root");
 
             CFNFile configureMyPHPAppFile = new CFNFile("/tmp/configure_myphpapp.sh")
-                    .setContent("PLACEHOLDER") //TODO insert content
+                    .setContent(configureMyPHPAppFileContent)
                     .setMode("000500")
                     .setOwner("root")
                     .setGroup("root");
 
             CFNFile mySQLDBMSConfigureFile = new CFNFile("/tmp/mysql_dbms_configure.sh")
-                    .setContent("PLACEHOLDER") //TODO insert content
+                    .setContent(mySQLDBMSConfigureFileContent)
                     .setMode("000500")
                     .setOwner("root")
                     .setGroup("root");
@@ -164,6 +168,47 @@ public class LampTemplateBuildTest extends Module {
                     .addConfig(CFNINIT_CONFIGSET, install)
                     .addConfig(CFNINIT_CONFIGSET, configure);
 
+            UserData webServerUserData = new UserData(new Fn("Join", "", "|\n" +
+                            "#!/bin/bash -xe" ,
+                            "|\n" +
+                            "mkdir -p /tmp/aws-cfn-bootstrap-latest" ,
+                            "|\n" +
+                            "curl https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz | tar xz -C /tmp/aws-cfn-bootstrap-latest --strip-components 1" ,
+                            "|\n" +
+                            "apt-get update" ,
+                            "|\n" +
+                            "apt-get -y install python-setuptools" ,
+                            "|\n" +
+                            "easy_install /tmp/aws-cfn-bootstrap-latest" ,
+                            "|\n" +
+                            "cp /tmp/aws-cfn-bootstrap-latest/init/ubuntu/cfn-hup /etc/init.d/cfn-hup\n" ,
+                            "|\n" +
+                            "chmod 755 /etc/init.d/cfn-hup" ,
+                            "|\n" +
+                            "update-rc.d cfn-hup defaults" ,
+                            "|+" ,
+                            "|\n" +
+                            "# Install the files and packages from the metadata" ,
+                            "/usr/local/bin/cfn-init -v " ,
+                            "         --stack " ,
+                            template.ref("AWS::StackName"),
+                            "         --resource WebServerInstance " ,
+                            "         --configsets InstallAndRun " ,
+                            "         --region " ,
+                            template.ref("'AWS::Region") ,
+                            "|+" ,
+                            "" ,
+                            "|\n" +
+                            "# Signal the status from cfn-init" ,
+                            "/usr/local/bin/cfn-signal -e $? " ,
+                            "         --stack " ,
+                            template.ref("AWS::StackName") ,
+                            "         --resource WebServerInstance '" ,
+                            "         --region " ,
+                            template.ref("AWS::Region") ,
+                            "|+")
+                    );
+
             SecurityGroup webServerSecurityGroup = resource(SecurityGroup.class, "WebServerSecurityGroup")
                     .groupDescription("Enable ports 80 and 22")
                     .ingress(ingress -> ingress.cidrIp(cidrIp), "tcp", 80, 22);
@@ -177,7 +222,7 @@ public class LampTemplateBuildTest extends Module {
                     .instanceType("t2.micro")
                     .securityGroupIds(webServerSecurityGroup)
                     .keyName(keyNameVar)
-                    .userData(""); //TODO add userdata
+                    .userData(webServerUserData); //TODO add userdata
 
             DBInstance mySQLDatabase = resource(DBInstance.class, "MySQLDatabase")
                     .engine("MySQL")

@@ -1,8 +1,5 @@
 package com.scaleset.cfbuilder;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.scaleset.cfbuilder.core.Fn;
 import com.scaleset.cfbuilder.core.Module;
 import com.scaleset.cfbuilder.core.Template;
@@ -68,13 +65,8 @@ public class MetadataTest {
                     .putPackage(cfnPackage)
                     .putService(service);
 
-            List<String> attributeList = new ArrayList<>();
-            attributeList.add("Endpoint");
-            attributeList.add("Address");
-
             CFNCommand configure_mysql = new CFNCommand("configure_myphp", "sh /tmp/configure_myphpapp.sh")
-                    .addEnv("database_name", "mydatabase")
-                    .addEnv("database_host", fnGetAtt("WebServerInstance", attributeList));
+                    .addEnv("database_name", "mydatabase");
             CFNInit cfnInit = new CFNInit(CFNINIT_CONFIGSET)
                     .addConfig(CFNINIT_CONFIGSET, install);
 

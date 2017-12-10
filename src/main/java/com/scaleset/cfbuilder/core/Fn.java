@@ -27,12 +27,6 @@ public class Fn {
         properties.put("Fn::" + name, parameters);
     }
 
-    public Fn(String name, List<String> params) {
-        this.name = name;
-        parameters.addAll(params);
-        properties.put("Fn::" + name, parameters);
-    }
-
 
     public static Fn fn(String name, Object... params) {
         return new Fn(name, params);

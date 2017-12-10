@@ -13,6 +13,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @JsonPropertyOrder({"AWSTemplateFormatVersion", "Description", "Parameters", "Mappings", "Resources", "Outputs"})
@@ -39,6 +40,11 @@ public class Template {
 
     public Fn fnGetAtt(String resource, String attribute) {
         return new Fn("GetAtt", resource, attribute);
+    }
+
+    public Fn fnGetAtt(String resource, List<String> attributeList) {
+        attributeList.add(0, resource);
+        return new Fn("GetAtt", attributeList);
     }
 
     public Map<String, Output> getOutputs() {

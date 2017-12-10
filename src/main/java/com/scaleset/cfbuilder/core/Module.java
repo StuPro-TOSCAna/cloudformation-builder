@@ -1,6 +1,7 @@
 package com.scaleset.cfbuilder.core;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -38,6 +39,10 @@ public class Module {
         return template.fnGetAtt(ns(resource), attribute);
     }
 
+    public Fn fnGetAtt(String resource, List<String> attributeList) {
+        return template.fnGetAtt(ns(resource), attributeList);
+    }
+
     public Parameter strParam(String id) {
         return template.strParam(ns(id));
     }
@@ -69,12 +74,10 @@ public class Module {
             this.options.putAll(options);
         }
         return this;
-
     }
 
     public Module template(Template template) {
         this.template = template;
         return this;
     }
-
 }

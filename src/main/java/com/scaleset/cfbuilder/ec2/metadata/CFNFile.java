@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({"content", "source", "encoding", "mode", "owner", "group"})
 public class CFNFile {
 
-    // Note: Content and source are mutually exclusive.
     @JsonProperty("content")
     public String content;
 
@@ -42,20 +41,13 @@ public class CFNFile {
         this.id = id;
     }
 
+    //TODO: Make content and source mutually exclusive
     public CFNFile setContent(String content) {
-        // Set source to null if it exists
-        if (!this.source.equals(null)){
-            this.source = null;
-        }
         this.content = content;
         return this;
     }
 
     public CFNFile setSource(String source) {
-        // Set content to null if it exists
-        if (!this.content.equals(null)){
-            this.content = null;
-        }
         this.source = source;
         return this;
     }

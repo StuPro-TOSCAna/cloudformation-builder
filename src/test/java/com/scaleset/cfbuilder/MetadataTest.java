@@ -71,6 +71,7 @@ public class MetadataTest {
 
             CFNFile indexFile = new CFNFile("/var/www/html/index.php")
                     .setContent("<php?\nphpinfo()\n?>")
+                    .setEncoding("base64")
                     .setMode("000644")
                     .setOwner("www-data")
                     .setGroup("www-data");

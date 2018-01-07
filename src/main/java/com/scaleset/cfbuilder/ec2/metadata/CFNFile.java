@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
- * Class representing Files in the AWS::Cloudformation::Init
+ Class representing Files in the AWS::Cloudformation::Init
  */
 @JsonPropertyOrder({"content", "source", "encoding", "mode", "owner", "group"})
 public class CFNFile {
@@ -13,7 +13,7 @@ public class CFNFile {
     @JsonProperty("content")
     public String content;
 
-    @JsonProperty ("source")
+    @JsonProperty("source")
     public String source;
 
     @JsonProperty("encoding")
@@ -33,22 +33,25 @@ public class CFNFile {
     public String id;
 
     /**
-     * Creates a <tt>CFNFile<tt> with the given id.
-     *
-     * @param id for the <tt>CFNFile<tt> to be created
+     Creates a <tt>CFNFile<tt> with the given id.
+
+     @param id for the <tt>CFNFile<tt> to be created
      */
     public CFNFile(String id) {
         this.id = id;
     }
 
-    //TODO: Make content and source mutually exclusive
     public CFNFile setContent(String content) {
-        this.content = content;
+        if (source == null) {
+            this.content = content;
+        }
         return this;
     }
 
     public CFNFile setSource(String source) {
-        this.source = source;
+        if (content == null) {
+            this.source = source;
+        }
         return this;
     }
 

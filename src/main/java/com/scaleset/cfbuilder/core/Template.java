@@ -86,8 +86,8 @@ public class Template {
         return this;
     }
 
-    public <T extends Resource> T resource(Class<T> type, String id) throws Exception {
-        ResourceInvocationHandler<T> proxy = new ResourceInvocationHandler(type, id);
+    public <T extends Resource> T resource(Class<T> type, String id) {
+        ResourceInvocationHandler<T> proxy = new ResourceInvocationHandler<T>(type, id);
         T result = proxy.proxy();
         resources.put(id, result);
         return result;

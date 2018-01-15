@@ -28,7 +28,7 @@ public class CloudFormationBuilderTest extends Module {
         private static final String KEYNAME_TYPE = "AWS::EC2::KeyPair::KeyName";
         private static final String KEYNAME_CONSTRAINT_DESCRIPTION = "must be the name of an existing EC2 KeyPair.";
 
-        public void build() throws Exception {
+        public void build(){
             
             Parameter keyName = (Parameter) option("KeyName").orElseGet(
                 () -> strParam("KeyName")

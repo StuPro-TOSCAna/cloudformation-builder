@@ -130,7 +130,7 @@ public class MetadataTest {
         private static final String CFNINIT_CONFIGSET = "InstallAndRun";
         private static final String CFNINIT_CONFIG_INSTALL = "Install";
 
-        public void build() throws Exception {
+        public void build() {
 
             Object keyName = option("KeyName").orElseGet(
                     () -> strParam("KeyName").type(KEYNAME_TYPE).description(KEYNAME_DESCRIPTION)

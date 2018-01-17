@@ -5,13 +5,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
- * ATM only supports Strings as content, no source url
+ Class representing Files in the AWS::Cloudformation::Init
  */
-@JsonPropertyOrder({"content", "encoding", "mode", "owner", "group"})
+@JsonPropertyOrder({"content", "source", "encoding", "mode", "owner", "group"})
 public class CFNFile {
 
     @JsonProperty("content")
     public String content;
+
+    @JsonProperty("source")
+    public String source;
 
     @JsonProperty("encoding")
     public String encoding;
@@ -25,22 +28,30 @@ public class CFNFile {
     @JsonProperty("group")
     public String group;
 
-    //TODO add: source(source and content exclude each other)
-
+    // The id represents the path where the file will be stored
     @JsonIgnore
     public String id;
 
     /**
-     * The id is the path where the file will be stored
-     *
-     * @param id
+     Creates a <tt>CFNFile<tt> with the given id.
+
+     @param id for the <tt>CFNFile<tt> to be created
      */
     public CFNFile(String id) {
         this.id = id;
     }
 
     public CFNFile setContent(String content) {
-        this.content = content;
+        if (source == null) {
+            this.content = content;
+        }
+        return this;
+    }
+
+    public CFNFile setSource(String source) {
+        if (content == null) {
+            this.source = source;
+        }
         return this;
     }
 

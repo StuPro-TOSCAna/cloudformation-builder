@@ -1,5 +1,7 @@
 package com.scaleset.cfbuilder;
 
+import java.io.IOException;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
@@ -19,7 +21,7 @@ import static com.scaleset.cfbuilder.ec2.SecurityGroup.PortRange.range;
 public class TemplateTest extends Assert {
 
     @Test
-    public void simpleTest() throws Exception {
+    public void simpleTest() throws IOException {
         Template t = new Template();
         new TestModule().id("Test").template(t).build();
         new TestModule().id("Test2").template(t).build();
@@ -37,7 +39,7 @@ public class TemplateTest extends Assert {
 
     class TestModule extends Module {
 
-        public void build() throws Exception {
+        public void build(){
 
             Object instanceType = option("instanceType").orElseGet(
                     () -> strParam("InstanceType").defaultValue("m1.small").description(ns("Instance") + " instance type"));

@@ -19,7 +19,7 @@ public class Module {
         options(options);
     }
 
-    public void build() throws Exception {
+    public void build() {
     }
 
     public String ns(String id) {
@@ -55,7 +55,7 @@ public class Module {
         return template.output(ns(id), value, description);
     }
 
-    public <T extends Resource> T resource(Class<T> type, String id) throws Exception {
+    public <T extends Resource> T resource(Class<T> type, String id) {
         return template.resource(type, ns(id));
     }
 
@@ -69,12 +69,10 @@ public class Module {
             this.options.putAll(options);
         }
         return this;
-
     }
 
     public Module template(Template template) {
         this.template = template;
         return this;
     }
-
 }

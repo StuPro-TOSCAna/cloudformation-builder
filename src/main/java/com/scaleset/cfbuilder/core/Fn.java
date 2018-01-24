@@ -58,7 +58,8 @@ public class Fn {
         mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
         mapper.setPropertyNamingStrategy(PropertyNamingStrategy.PASCAL_CASE_TO_CAMEL_CASE);
         try {
-            return mapper.writeValueAsString(this);
+            String result = mapper.writeValueAsString(this);
+            return result.substring(4, result.length()-1);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

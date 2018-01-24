@@ -8,6 +8,12 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 public class Fn {
 
@@ -35,6 +41,27 @@ public class Fn {
     public static Fn fnDelimiter(String name, String delimiter, Object... params){
         List<Object> list = Arrays.asList(params);
         return new Fn(name, delimiter, list);
+    }
+
+    public static Fn fnGetAtt(String resource, String attribute) {
+        return new Fn("GetAtt", resource, attribute);
+    }
+
+    public String toString(Boolean yaml) {
+        ObjectMapper mapper;
+        if (yaml) {
+            mapper = new ObjectMapper(new YAMLFactory());
+        } else {
+            mapper = new ObjectMapper();
+        }
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.PASCAL_CASE_TO_CAMEL_CASE);
+        try {
+            return mapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @JsonAnyGetter

@@ -30,7 +30,7 @@ public class Authentication {
     private String username;
 
     @JsonProperty("roleName")
-    private Role roleName;
+    private Object roleName;
 
     @JsonIgnore
     private String name;
@@ -124,11 +124,11 @@ public class Authentication {
         return this;
     }
 
-    public Role getRoleName() {
+    public Object getRoleName() {
         return roleName;
     }
 
-    public Authentication roleName(Role roleName) {
+    public Authentication roleName(Object roleName) {
         this.roleName = roleName;
         return this;
     }

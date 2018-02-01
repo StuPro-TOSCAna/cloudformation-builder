@@ -134,7 +134,7 @@ public class MetadataTest {
             Authentication authentication = new Authentication("S3Creds")
                     .accessKeyId("123")
                     .addBucket("bucketName")
-                    .roleName(instanceRole)
+                    .roleName(ref("InstanceRole"))
                     .type("S3")
                     .addUri("www.com")
                     .secretKey("secret")

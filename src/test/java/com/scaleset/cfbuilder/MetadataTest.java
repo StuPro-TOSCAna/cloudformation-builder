@@ -1,5 +1,6 @@
 package com.scaleset.cfbuilder;
 
+import com.scaleset.cfbuilder.cloudformation.Authentication;
 import com.scaleset.cfbuilder.core.Fn;
 import com.scaleset.cfbuilder.core.Module;
 import com.scaleset.cfbuilder.core.Template;
@@ -13,6 +14,10 @@ import com.scaleset.cfbuilder.ec2.metadata.CFNPackage;
 import com.scaleset.cfbuilder.ec2.metadata.CFNService;
 import com.scaleset.cfbuilder.ec2.metadata.Config;
 import com.scaleset.cfbuilder.ec2.metadata.SimpleService;
+import com.scaleset.cfbuilder.iam.InstanceProfile;
+import com.scaleset.cfbuilder.iam.Policies;
+import com.scaleset.cfbuilder.iam.Policy;
+import com.scaleset.cfbuilder.iam.Role;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -107,13 +112,33 @@ public class MetadataTest {
 
             Object groupId = webServerSecurityGroup.fnGetAtt("GroupId");
 
+            Role instanceRole = resource(Role.class, "InstanceRole")
+                    .path("/")
+                    .assumeRolePolicyDocument("PolicyContent");
+
+            resource(Policy.class, "RolePolicies")
+                    .policyName("S3Download")
+                    .policyDocument("Document Content")
+                    .roles(instanceRole);
+
+            resource(InstanceProfile.class, "InstanceProfile")
+                    .path("/")
+                    .roles(instanceRole);
+
+            Authentication authentication = new Authentication("S3Creds")
+                    .accessKeyId("123")
+                    .addBucket("bucketName")
+                    .roleName(instanceRole);
+
             Instance webServerInstance = resource(Instance.class, "WebServerInstance")
                     .addCFNInit(cfnInit)
                     .imageId("ami-0def3275")
                     .instanceType("t2.micro")
                     .securityGroupIds(webServerSecurityGroup)
                     .keyName(keyNameVar)
-                    .userData(new UserData(Fn.fnDelimiter("Join", "", "eins", "zwei")));
+                    .userData(new UserData(Fn.fnDelimiter("Join", "", "one", "two")))
+                    .iamInstanceProfile("!Ref test")
+                    .authentication(authentication);
 
             Object publicDNSName = webServerInstance.fnGetAtt("PublicDnsName");
 

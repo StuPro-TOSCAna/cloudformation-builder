@@ -33,7 +33,7 @@ public class Authentication {
     private Role roleName;
 
     @JsonIgnore
-    public String name;
+    private String name;
 
     public Authentication(String name) {
         this.name = name;

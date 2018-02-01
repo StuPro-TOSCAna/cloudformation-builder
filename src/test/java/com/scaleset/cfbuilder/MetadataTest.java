@@ -1,5 +1,8 @@
 package com.scaleset.cfbuilder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.scaleset.cfbuilder.cloudformation.Authentication;
 import com.scaleset.cfbuilder.core.Fn;
 import com.scaleset.cfbuilder.core.Module;
@@ -28,7 +31,7 @@ import static org.junit.Assert.assertNotNull;
 public class MetadataTest {
 
     @Test
-    public void metadataTest() throws Exception {
+    public void metadataTest(){
         Template lampTemplate = new Template();
         new MetadataModule().id("").template(lampTemplate).build();
 
@@ -37,7 +40,7 @@ public class MetadataTest {
     }
 
     @Test
-    public void fileTest() throws Exception {
+    public void fileTest(){
         //ensure that a CFNFile can only take Source or File
         Template fileTemplate = new Template();
         new FileModule().id("").template(fileTemplate).build();
@@ -116,19 +119,26 @@ public class MetadataTest {
                     .path("/")
                     .assumeRolePolicyDocument("PolicyContent");
 
-            resource(Policy.class, "RolePolicies")
+            Policy rolePolicies = resource(Policy.class, "RolePolicies")
                     .policyName("S3Download")
                     .policyDocument("Document Content")
-                    .roles(instanceRole);
+                    .roles(instanceRole)
+                    .groups("group")
+                    .users("user");
 
-            resource(InstanceProfile.class, "InstanceProfile")
+            InstanceProfile instanceProfile = resource(InstanceProfile.class, "InstanceProfile")
                     .path("/")
-                    .roles(instanceRole);
+                    .roles(instanceRole)
+                    .instanceProfileName("InstanceProfileName");
 
             Authentication authentication = new Authentication("S3Creds")
                     .accessKeyId("123")
                     .addBucket("bucketName")
-                    .roleName(instanceRole);
+                    .roleName(instanceRole)
+                    .type("S3")
+                    .addUri("www.com")
+                    .secretKey("secret")
+                    .username("user");
 
             Instance webServerInstance = resource(Instance.class, "WebServerInstance")
                     .addCFNInit(cfnInit)
@@ -137,8 +147,28 @@ public class MetadataTest {
                     .securityGroupIds(webServerSecurityGroup)
                     .keyName(keyNameVar)
                     .userData(new UserData(Fn.fnDelimiter("Join", "", "one", "two")))
-                    .iamInstanceProfile("!Ref test")
+                    .iamInstanceProfile(instanceProfile)
                     .authentication(authentication);
+
+            ArrayList<String> bucketList = new ArrayList<String>();
+            bucketList.add("bucketName");
+
+            ArrayList<String> uriList = new ArrayList<String>();
+            uriList.add("www.com");
+
+            Authentication authentication2 = new Authentication("S3Creds")
+                    .name("AltCreds")
+                    .buckets(bucketList)
+                    .uris(uriList)
+                    .deleteBucket("bucketName")
+                    .deleteUri("www.com")
+                    .addBucket("bucketName2")
+                    .addBucket("bucketName3")
+                    .addUri("www.org")
+                    .addUri("www.tv");
+
+            Instance otherInstance = resource(Instance.class, "OtherInstance")
+                    .authentication(authentication2);
 
             Object publicDNSName = webServerInstance.fnGetAtt("PublicDnsName");
 

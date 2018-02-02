@@ -35,12 +35,12 @@ public class Authentication {
     private String name;
 
     /**
-     Constructs an `Authentication` to specify authentication credentials for files or sources specified
-     with the `AWS::CloudFormation::Init` resource.
-     Type: `AWS::CloudFormation::Authentication`
+     Constructs an <tt>Authentication<tt> to specify authentication credentials for files or sources specified
+     with the <tt>AWS::CloudFormation::Init<tt> resource.
+     Type: <tt>AWS::CloudFormation::Authentication<tt>
      Documentation: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-authentication.html
 
-     @param name of this `Authentication`
+     @param name of this <tt>Authentication<tt>
      */
     public Authentication(String name) {
         this.name = name;

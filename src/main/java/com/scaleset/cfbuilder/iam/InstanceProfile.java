@@ -4,9 +4,9 @@ import com.scaleset.cfbuilder.annotations.Type;
 import com.scaleset.cfbuilder.core.Resource;
 
 /**
- Constructs an `InstanceProfile` to create an AWS Identity and Access Management (IAM)
+ Constructs an <tt>InstanceProfile<tt> to create an AWS Identity and Access Management (IAM)
  instance profile that can be used with IAM roles for EC2 instances.
- Type: `AWS::IAM::InstanceProfile`
+ Type: <tt>AWS::IAM::InstanceProfile<tt>
  Documentation: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-instanceprofile.html
  */
 @Type("AWS::IAM::InstanceProfile")

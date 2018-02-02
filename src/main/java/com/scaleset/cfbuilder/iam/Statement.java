@@ -15,7 +15,7 @@ public class Statement {
     private Object condition;
 
     /**
-     Constructs a `Statement` to build IAM policies in the `PolicyDocument`.
+     Constructs a <tt>Statement<tt> to build IAM policies in the <tt>PolicyDocument<tt>.
      Documentation: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_statement.html
      */
     public Statement() {

@@ -9,7 +9,7 @@ public class PolicyDocument {
     private List<Statement> statement;
 
     /**
-     Constructs a `PolicyDocument` representing an IAM policy to be used within `Policy` and `InstanceProfile`.
+     Constructs a <tt>PolicyDocument<tt> representing an IAM policy to be used within <tt>Policy<tt> and <tt>InstanceProfile<tt>.
      Documentation: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html
      */
     public PolicyDocument() {

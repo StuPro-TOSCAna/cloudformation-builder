@@ -19,7 +19,7 @@ public class Module {
         options(options);
     }
 
-    public void build(){
+    public void build() {
     }
 
     public String ns(String id) {

@@ -17,10 +17,7 @@ import com.scaleset.cfbuilder.ec2.metadata.CFNPackage;
 import com.scaleset.cfbuilder.ec2.metadata.CFNService;
 import com.scaleset.cfbuilder.ec2.metadata.Config;
 import com.scaleset.cfbuilder.ec2.metadata.SimpleService;
-import com.scaleset.cfbuilder.iam.InstanceProfile;
-import com.scaleset.cfbuilder.iam.Policies;
-import com.scaleset.cfbuilder.iam.Policy;
-import com.scaleset.cfbuilder.iam.Role;
+import com.scaleset.cfbuilder.iam.*;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -119,9 +116,18 @@ public class MetadataTest {
                     .path("/")
                     .assumeRolePolicyDocument("PolicyContent");
 
+            Statement policyDocumentStatement = new Statement()
+                    .addAction("s3:GetObject")
+                    .effect("Allow")
+                    .addResource("bucketName");
+
+            PolicyDocument policyDocument = new PolicyDocument()
+                    .version("1.0")
+                    .addStatement(policyDocumentStatement);
+
             Policy rolePolicies = resource(Policy.class, "RolePolicies")
                     .policyName("S3Download")
-                    .policyDocument("Document Content")
+                    .policyDocument(policyDocument)
                     .roles(instanceRole)
                     .groups("group")
                     .users("user");

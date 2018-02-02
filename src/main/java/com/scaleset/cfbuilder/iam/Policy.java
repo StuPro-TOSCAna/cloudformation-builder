@@ -8,7 +8,7 @@ public interface Policy extends Resource {
 
     Policy groups(Object... groups);
 
-    Policy policyDocument(Object value);
+    Policy policyDocument(PolicyDocument value);
 
     Policy policyName(Object value);
 

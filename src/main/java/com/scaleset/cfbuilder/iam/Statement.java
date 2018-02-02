@@ -8,8 +8,8 @@ public class Statement {
     private List<String> action;
     private List<String> notAction;
     private String effect;
-    private Object principal;
-    private Object notPrincipal;
+    private Principal principal;
+    private Principal notPrincipal;
     private List<String> resource;
     private List<String> notResource;
     private Object condition;
@@ -75,7 +75,7 @@ public class Statement {
         return principal;
     }
 
-    public Statement principal(Object principal) {
+    public Statement principal(Principal principal) {
         this.principal = principal;
         return this;
     }
@@ -84,7 +84,7 @@ public class Statement {
         return notPrincipal;
     }
 
-    public Statement notPrincipal(Object notPrincipal) {
+    public Statement notPrincipal(Principal notPrincipal) {
         this.notPrincipal = notPrincipal;
         return this;
     }

@@ -1,6 +1,7 @@
 package com.scaleset.cfbuilder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.scaleset.cfbuilder.cloudformation.Authentication;
 import com.scaleset.cfbuilder.core.Fn;
@@ -19,6 +20,7 @@ import com.scaleset.cfbuilder.ec2.metadata.SimpleService;
 import com.scaleset.cfbuilder.iam.InstanceProfile;
 import com.scaleset.cfbuilder.iam.Policy;
 import com.scaleset.cfbuilder.iam.PolicyDocument;
+import com.scaleset.cfbuilder.iam.Principal;
 import com.scaleset.cfbuilder.iam.Role;
 import com.scaleset.cfbuilder.iam.Statement;
 import org.junit.Assert;
@@ -119,10 +121,16 @@ public class MetadataTest {
                     .path("/")
                     .assumeRolePolicyDocument("PolicyContent");
 
+            List resourceList = new ArrayList<>();
+            resourceList.add("ec2.amazonaws.com");
+
+            Principal principal = new Principal().principal("Service", resourceList);
+
             Statement policyDocumentStatement = new Statement()
                     .addAction("s3:GetObject")
                     .effect("Allow")
-                    .addResource("bucketName");
+                    .addResource("bucketName")
+                    .principal(principal);
 
             PolicyDocument policyDocument = new PolicyDocument()
                     .version("1.0")

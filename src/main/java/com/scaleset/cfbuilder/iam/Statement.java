@@ -14,7 +14,11 @@ public class Statement {
     private List<String> notResource;
     private Object condition;
 
-    public Statement(){
+    /**
+     Constructs a `Statement` to build IAM policies in the `PolicyDocument`.
+     Documentation: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_statement.html
+     */
+    public Statement() {
         this.action = new ArrayList<>();
         this.notAction = new ArrayList<>();
         this.resource = new ArrayList<>();
@@ -39,7 +43,7 @@ public class Statement {
         return this;
     }
 
-    public Statement addAction(String action){
+    public Statement addAction(String action) {
         this.action.add(action);
         return this;
     }
@@ -53,7 +57,7 @@ public class Statement {
         return this;
     }
 
-    public Statement addNotAction(String action){
+    public Statement addNotAction(String action) {
         this.notAction.add(action);
         return this;
     }
@@ -94,7 +98,7 @@ public class Statement {
         return this;
     }
 
-    public Statement addResource(String resource){
+    public Statement addResource(String resource) {
         this.resource.add(resource);
         return this;
     }
@@ -108,7 +112,7 @@ public class Statement {
         return this;
     }
 
-    public Statement addNotResource(String resource){
+    public Statement addNotResource(String resource) {
         this.notResource.add(resource);
         return this;
     }

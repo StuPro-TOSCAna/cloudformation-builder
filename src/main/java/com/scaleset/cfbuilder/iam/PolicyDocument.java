@@ -1,7 +1,5 @@
 package com.scaleset.cfbuilder.iam;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +8,11 @@ public class PolicyDocument {
     private String id;
     private List<Statement> statement;
 
-    public PolicyDocument(){
+    /**
+     Constructs a `PolicyDocument` representing an IAM policy to be used within `Policy` and `InstanceProfile`.
+     Documentation: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html
+     */
+    public PolicyDocument() {
         this.statement = new ArrayList<>();
     }
 
@@ -41,7 +43,7 @@ public class PolicyDocument {
         return this;
     }
 
-    public PolicyDocument addStatement(Statement statement){
+    public PolicyDocument addStatement(Statement statement) {
         this.statement.add(statement);
         return this;
     }

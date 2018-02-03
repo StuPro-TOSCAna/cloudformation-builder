@@ -1,6 +1,7 @@
 package com.scaleset.cfbuilder.ec2;
 
 import com.scaleset.cfbuilder.annotations.Type;
+import com.scaleset.cfbuilder.cloudformation.Authentication;
 import com.scaleset.cfbuilder.core.Taggable;
 import com.scaleset.cfbuilder.ec2.metadata.CFNInit;
 
@@ -32,4 +33,8 @@ public interface Instance extends Taggable {
     }
 
     Instance addCFNInit(CFNInit cfnInit);
+
+    Instance iamInstanceProfile (Object value);
+
+    Instance authentication(Authentication authentication);
 }

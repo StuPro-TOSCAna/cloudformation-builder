@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.scaleset.cfbuilder.annotations.Type;
+import com.scaleset.cfbuilder.cloudformation.Authentication;
 import com.scaleset.cfbuilder.ec2.UserData;
 import com.scaleset.cfbuilder.ec2.metadata.CFNInit;
 import com.scaleset.cfbuilder.ec2.metadata.Config;
@@ -98,10 +99,16 @@ public class ResourceInvocationHandler<T extends Resource> implements Invocation
                 Map<String, Config> configs = cfnInit.getConfigs();
                 configs.forEach((name, config) -> cfnInitNode.set(name, toNode(config)));
             }
+        } else if (args[0] instanceof Authentication) {
+            Authentication authentication = (Authentication) args[0];
+            JsonNode valueNode = toNode(authentication);
+            if (!valueNode.isNull()) {
+                ObjectNode authenticationNode = this.metadata.putObject("AWS::CloudFormation::Authentication");
+                authenticationNode.set(authentication.getName(), valueNode);
+            }
         } else if (args[0] instanceof UserData) {
             UserData userData = (UserData) args[0];
             setProperty("UserData", userData);
-
         } else { //is property
             String propertyName = getPropertyName(method);
 
@@ -124,7 +131,6 @@ public class ResourceInvocationHandler<T extends Resource> implements Invocation
     /**
      * Get the setProperty name of the variable from the getter/setter method name
      */
-
     private String getPropertyName(Method method) {
         String result = method.getName();
         if (result.startsWith("set") || result.startsWith("get")) {

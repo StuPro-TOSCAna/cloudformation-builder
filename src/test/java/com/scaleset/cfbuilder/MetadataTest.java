@@ -1,5 +1,9 @@
 package com.scaleset.cfbuilder;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.scaleset.cfbuilder.cloudformation.Authentication;
 import com.scaleset.cfbuilder.core.Fn;
 import com.scaleset.cfbuilder.core.Module;
 import com.scaleset.cfbuilder.core.Template;
@@ -13,6 +17,12 @@ import com.scaleset.cfbuilder.ec2.metadata.CFNPackage;
 import com.scaleset.cfbuilder.ec2.metadata.CFNService;
 import com.scaleset.cfbuilder.ec2.metadata.Config;
 import com.scaleset.cfbuilder.ec2.metadata.SimpleService;
+import com.scaleset.cfbuilder.iam.InstanceProfile;
+import com.scaleset.cfbuilder.iam.Policy;
+import com.scaleset.cfbuilder.iam.PolicyDocument;
+import com.scaleset.cfbuilder.iam.Principal;
+import com.scaleset.cfbuilder.iam.Role;
+import com.scaleset.cfbuilder.iam.Statement;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -23,7 +33,7 @@ import static org.junit.Assert.assertNotNull;
 public class MetadataTest {
 
     @Test
-    public void metadataTest() throws Exception {
+    public void metadataTest() {
         Template lampTemplate = new Template();
         new MetadataModule().id("").template(lampTemplate).build();
 
@@ -32,7 +42,7 @@ public class MetadataTest {
     }
 
     @Test
-    public void fileTest() throws Exception {
+    public void fileTest() {
         //ensure that a CFNFile can only take Source or File
         Template fileTemplate = new Template();
         new FileModule().id("").template(fileTemplate).build();
@@ -55,7 +65,7 @@ public class MetadataTest {
         private static final String CFNINIT_CONFIG_INSTALL = "Install";
         private static final String CFNINIT_CONFIG_CONFIGURE = "Configure";
 
-        public void build(){
+        public void build() {
 
             Object keyName = option("KeyName").orElseGet(
                     () -> strParam("KeyName").type(KEYNAME_TYPE).description(KEYNAME_DESCRIPTION)
@@ -107,13 +117,75 @@ public class MetadataTest {
 
             Object groupId = webServerSecurityGroup.fnGetAtt("GroupId");
 
+            Role instanceRole = resource(Role.class, "InstanceRole")
+                    .path("/")
+                    .assumeRolePolicyDocument("PolicyContent");
+
+            List resourceList = new ArrayList<>();
+            resourceList.add("ec2.amazonaws.com");
+
+            Principal principal = new Principal().principal("Service", resourceList);
+
+            Statement policyDocumentStatement = new Statement()
+                    .addAction("s3:GetObject")
+                    .effect("Allow")
+                    .addResource("bucketName")
+                    .principal(principal);
+
+            PolicyDocument policyDocument = new PolicyDocument()
+                    .version("1.0")
+                    .addStatement(policyDocumentStatement);
+
+            Policy rolePolicies = resource(Policy.class, "RolePolicies")
+                    .policyName("S3Download")
+                    .policyDocument(policyDocument)
+                    .roles(instanceRole)
+                    .groups("group")
+                    .users("user");
+
+            InstanceProfile instanceProfile = resource(InstanceProfile.class, "InstanceProfile")
+                    .path("/")
+                    .roles(instanceRole)
+                    .instanceProfileName("InstanceProfileName");
+
+            Authentication authentication = new Authentication("S3Creds")
+                    .accessKeyId("123")
+                    .addBucket("bucketName")
+                    .roleName(ref("InstanceRole"))
+                    .type("S3")
+                    .addUri("www.com")
+                    .secretKey("secret")
+                    .username("user");
+
             Instance webServerInstance = resource(Instance.class, "WebServerInstance")
                     .addCFNInit(cfnInit)
                     .imageId("ami-0def3275")
                     .instanceType("t2.micro")
                     .securityGroupIds(webServerSecurityGroup)
                     .keyName(keyNameVar)
-                    .userData(new UserData(Fn.fnDelimiter("Join", "", "eins", "zwei")));
+                    .userData(new UserData(Fn.fnDelimiter("Join", "", "one", "two")))
+                    .iamInstanceProfile(instanceProfile)
+                    .authentication(authentication);
+
+            ArrayList<String> bucketList = new ArrayList<String>();
+            bucketList.add("bucketName");
+
+            ArrayList<String> uriList = new ArrayList<String>();
+            uriList.add("www.com");
+
+            Authentication authentication2 = new Authentication("S3Creds")
+                    .name("AltCreds")
+                    .buckets(bucketList)
+                    .uris(uriList)
+                    .deleteBucket("bucketName")
+                    .deleteUri("www.com")
+                    .addBucket("bucketName2")
+                    .addBucket("bucketName3")
+                    .addUri("www.org")
+                    .addUri("www.tv");
+
+            Instance otherInstance = resource(Instance.class, "OtherInstance")
+                    .authentication(authentication2);
 
             Object publicDNSName = webServerInstance.fnGetAtt("PublicDnsName");
 

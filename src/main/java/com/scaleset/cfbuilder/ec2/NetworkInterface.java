@@ -31,4 +31,9 @@ public interface NetworkInterface extends Taggable {
     NetworkInterface sourceDestCheck(boolean value);
 
     NetworkInterface subnetId(Object value);
+
+    default NetworkInterface name(String name) {
+        tag("Name", name);
+        return this;
+    }
 }

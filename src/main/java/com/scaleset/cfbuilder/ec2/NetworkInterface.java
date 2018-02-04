@@ -28,7 +28,7 @@ public interface NetworkInterface extends Taggable {
 
     NetworkInterface secondaryPrivateIpAddressCount(int value);
 
-    NetworkInterface sourceDestCheck(boolean value);
+    NetworkInterface sourceDestCheck(Boolean value);
 
     NetworkInterface subnetId(Object value);
 

@@ -53,7 +53,7 @@ public interface Instance extends Taggable {
 
     Instance keyName(Object value);
 
-    Instance monitoring(boolean value);
+    Instance monitoring(Boolean value);
 
     Instance networkInterfaces(EC2NetworkInterface... values);
 
@@ -67,7 +67,7 @@ public interface Instance extends Taggable {
 
     Instance securityGroups(Object... values);
 
-    Instance sourceDestCheck(boolean value);
+    Instance sourceDestCheck(Boolean value);
 
     Instance ssmAssociations(SSMAssociation... values);
 

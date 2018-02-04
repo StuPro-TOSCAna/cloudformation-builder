@@ -14,9 +14,9 @@ public interface Vpc extends Resource {
 
     Vpc cidrBlock(String cidrBlock);
 
-    Vpc enableDnsSupport(boolean flag);
+    Vpc enableDnsSupport(Boolean flag);
 
-    Vpc enableDnsHostnames(boolean flag);
+    Vpc enableDnsHostnames(Boolean flag);
 
     Vpc instanceTenancy(String instanceTenancy);
 }

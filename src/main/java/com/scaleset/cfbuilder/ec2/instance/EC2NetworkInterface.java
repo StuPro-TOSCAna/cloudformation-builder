@@ -12,8 +12,8 @@ import com.scaleset.cfbuilder.ec2.networkinterface.PrivateIpAddressSpecification
 
  @see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-network-iface-embedded.html">Documentation Reference</a> */
 public class EC2NetworkInterface {
-    private boolean associatePublicIpAddress;
-    private boolean deleteOnTermination;
+    private Boolean associatePublicIpAddress;
+    private Boolean deleteOnTermination;
     private String description;
     private String deviceIndex;
     private List<String> groupSet;
@@ -31,28 +31,28 @@ public class EC2NetworkInterface {
         this.privateIpAddresses = new ArrayList<>();
     }
 
-    public boolean isAssociatePublicIpAddress() {
+    public Boolean isAssociatePublicIpAddress() {
         return associatePublicIpAddress;
     }
 
-    public void setAssociatePublicIpAddress(boolean associatePublicIpAddress) {
+    public void setAssociatePublicIpAddress(Boolean associatePublicIpAddress) {
         this.associatePublicIpAddress = associatePublicIpAddress;
     }
 
-    public EC2NetworkInterface associatePublicIpAddress(boolean associatePublicIpAddress) {
+    public EC2NetworkInterface associatePublicIpAddress(Boolean associatePublicIpAddress) {
         this.associatePublicIpAddress = associatePublicIpAddress;
         return this;
     }
 
-    public boolean isDeleteOnTermination() {
+    public Boolean isDeleteOnTermination() {
         return deleteOnTermination;
     }
 
-    public void setDeleteOnTermination(boolean deleteOnTermination) {
+    public void setDeleteOnTermination(Boolean deleteOnTermination) {
         this.deleteOnTermination = deleteOnTermination;
     }
 
-    public EC2NetworkInterface deleteOnTermination(boolean deleteOnTermination) {
+    public EC2NetworkInterface deleteOnTermination(Boolean deleteOnTermination) {
         this.deleteOnTermination = deleteOnTermination;
         return this;
     }

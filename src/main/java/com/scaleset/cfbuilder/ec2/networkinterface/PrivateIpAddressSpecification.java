@@ -10,7 +10,7 @@ public class PrivateIpAddressSpecification {
 
     private String privateIpAddress;
 
-    private boolean Primary;
+    private Boolean Primary;
 
     public String getPrivateIpAddress() {
         return privateIpAddress;
@@ -25,15 +25,15 @@ public class PrivateIpAddressSpecification {
         return this;
     }
 
-    public boolean isPrimary() {
+    public Boolean isPrimary() {
         return Primary;
     }
 
-    public void setPrimary(boolean primary) {
+    public void setPrimary(Boolean primary) {
         Primary = primary;
     }
 
-    public PrivateIpAddressSpecification primary(boolean primary) {
+    public PrivateIpAddressSpecification primary(Boolean primary) {
         Primary = primary;
         return this;
     }

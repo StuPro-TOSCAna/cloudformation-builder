@@ -7,35 +7,35 @@ import com.scaleset.cfbuilder.ec2.instance.EC2BlockDeviceMapping;
 
  @see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-blockdev-template.html">Documentation Reference</a> */
 public class EC2EBSBlockDevice {
-    private boolean deleteOnTermination;
-    private boolean encrypted;
+    private Boolean deleteOnTermination;
+    private Boolean encrypted;
     private int iops;
     private String snapshotId;
     private String volumeSize;
     private String volumeType;
 
-    public boolean isDeleteOnTermination() {
+    public Boolean isDeleteOnTermination() {
         return deleteOnTermination;
     }
 
-    public void setDeleteOnTermination(boolean deleteOnTermination) {
+    public void setDeleteOnTermination(Boolean deleteOnTermination) {
         this.deleteOnTermination = deleteOnTermination;
     }
 
-    public EC2EBSBlockDevice deleteOnTermination(boolean deleteOnTermination) {
+    public EC2EBSBlockDevice deleteOnTermination(Boolean deleteOnTermination) {
         this.deleteOnTermination = deleteOnTermination;
         return this;
     }
 
-    public boolean isEncrypted() {
+    public Boolean isEncrypted() {
         return encrypted;
     }
 
-    public void setEncrypted(boolean encrypted) {
+    public void setEncrypted(Boolean encrypted) {
         this.encrypted = encrypted;
     }
 
-    public EC2EBSBlockDevice encrypted(boolean encrypted) {
+    public EC2EBSBlockDevice encrypted(Boolean encrypted) {
         this.encrypted = encrypted;
         return this;
     }

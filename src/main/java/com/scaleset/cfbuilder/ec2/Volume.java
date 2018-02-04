@@ -11,11 +11,11 @@ import com.scaleset.cfbuilder.core.Taggable;
  @see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ebs-volume.html">Documentation Reference</a> */
 @Type("AWS::EC2::Volume")
 public interface Volume extends Taggable {
-    Volume autoEnableIO(boolean value);
+    Volume autoEnableIO(Boolean value);
 
     Volume availabilityZone(Object value);
 
-    Volume encrypted(boolean value);
+    Volume encrypted(Boolean value);
 
     Volume iops(int value);
 

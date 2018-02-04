@@ -13,7 +13,7 @@ import com.scaleset.cfbuilder.ec2.instance.ec2blockdevicemapping.EC2EBSBlockDevi
 public class EC2BlockDeviceMapping {
     private String deviceName;
     private EC2EBSBlockDevice ebs;
-    private boolean noDevice;
+    private Boolean noDevice;
     private String virtualName;
 
     public String getDeviceName() {
@@ -42,15 +42,15 @@ public class EC2BlockDeviceMapping {
         return this;
     }
 
-    public boolean isNoDevice() {
+    public Boolean isNoDevice() {
         return noDevice;
     }
 
-    public void setNoDevice(boolean noDevice) {
+    public void setNoDevice(Boolean noDevice) {
         this.noDevice = noDevice;
     }
 
-    public EC2BlockDeviceMapping noDevice(boolean noDevice) {
+    public EC2BlockDeviceMapping noDevice(Boolean noDevice) {
         this.noDevice = noDevice;
         return this;
     }

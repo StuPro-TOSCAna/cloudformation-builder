@@ -12,13 +12,9 @@ import com.scaleset.cfbuilder.ec2.instance.ec2blockdevicemapping.EC2EBSBlockDevi
  @see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-blockdev-mapping.html">Documentation Reference</a> */
 public class EC2BlockDeviceMapping {
     private String deviceName;
-    private List<EC2EBSBlockDevice> ebs;
+    private EC2EBSBlockDevice ebs;
     private boolean noDevice;
     private String virtualName;
-
-    public EC2BlockDeviceMapping() {
-        this.ebs = new ArrayList<>();
-    }
 
     public String getDeviceName() {
         return deviceName;
@@ -33,21 +29,16 @@ public class EC2BlockDeviceMapping {
         return this;
     }
 
-    public List<EC2EBSBlockDevice> getEbs() {
+    public EC2EBSBlockDevice getEbs() {
         return ebs;
     }
 
-    public void setEbs(List<EC2EBSBlockDevice> ebs) {
+    public void setEbs(EC2EBSBlockDevice ebs) {
         this.ebs = ebs;
     }
 
-    public EC2BlockDeviceMapping ebs(List<EC2EBSBlockDevice> ebs) {
+    public EC2BlockDeviceMapping ebs(EC2EBSBlockDevice ebs) {
         this.ebs = ebs;
-        return this;
-    }
-
-    public EC2BlockDeviceMapping addEbs(EC2EBSBlockDevice ebd) {
-        this.ebs.add(ebd);
         return this;
     }
 

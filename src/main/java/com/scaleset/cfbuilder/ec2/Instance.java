@@ -13,10 +13,11 @@ import com.scaleset.cfbuilder.ec2.metadata.CFNInit;
 import com.scaleset.cfbuilder.ec2.networkinterface.Ipv6Address;
 
 /**
- Constructs an EC2 <tt>Instance</tt>.
- Type: </tt>AWS::EC2::Instance</tt>
- Documentation: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html
- */
+ Constructs an EC2 {@code Instance}.
+ <br>
+ Type: {@code AWS::EC2::Instance}
+
+ @see <a href=" https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html">Documentation Reference</a> */
 @Type("AWS::EC2::Instance")
 public interface Instance extends Taggable {
 

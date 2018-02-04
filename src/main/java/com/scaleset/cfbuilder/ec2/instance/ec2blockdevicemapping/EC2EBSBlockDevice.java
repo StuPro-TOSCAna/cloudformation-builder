@@ -1,9 +1,11 @@
 package com.scaleset.cfbuilder.ec2.instance.ec2blockdevicemapping;
 
+import com.scaleset.cfbuilder.ec2.instance.EC2BlockDeviceMapping;
+
 /**
- Constructs a <tt>EC2EBSBlockDevice</tt> to be embedded in a <tt>EC2BlockDeviceMapping</tt>.
- Documentation: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-blockdev-template.html
- */
+ Constructs a {@code EC2EBSBlockDevice} to be embedded in a {@link EC2BlockDeviceMapping}.
+
+ @see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-blockdev-template.html">Documentation Reference</a> */
 public class EC2EBSBlockDevice {
     private boolean deleteOnTermination;
     private boolean encrypted;

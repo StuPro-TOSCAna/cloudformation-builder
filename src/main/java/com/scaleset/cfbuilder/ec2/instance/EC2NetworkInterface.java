@@ -3,13 +3,14 @@ package com.scaleset.cfbuilder.ec2.instance;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.scaleset.cfbuilder.ec2.Instance;
 import com.scaleset.cfbuilder.ec2.networkinterface.Ipv6Address;
 import com.scaleset.cfbuilder.ec2.networkinterface.PrivateIpAddressSpecification;
 
 /**
- Constructs a <tt>EC2NetworkInterface</tt> to be attached to an EC2 <tt>Instance</tt>.
- Documentation: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-network-iface-embedded.html
- */
+ Constructs a {@code EC2NetworkInterface} to be attached to an EC2 {@link Instance}.
+
+ @see <a href=" https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-network-iface-embedded.html">Documentation Reference</a> */
 public class EC2NetworkInterface {
     private boolean associatePublicIpAddress;
     private boolean deleteOnTermination;

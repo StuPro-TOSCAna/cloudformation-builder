@@ -3,19 +3,20 @@ package com.scaleset.cfbuilder.ec2.instance;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.scaleset.cfbuilder.ec2.Instance;
 import com.scaleset.cfbuilder.ec2.instance.ec2blockdevicemapping.EC2EBSBlockDevice;
 
 /**
- Constructs an <tt>EC2BlockDeviceMapping</tt> to be embedded în an <tt>Instance</tt> resource.
- Documentation: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-blockdev-mapping.html
- */
+ Constructs an {@code EC2BlockDeviceMapping} to be embedded în an {@link Instance} resource.
+
+ @see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-blockdev-mapping.html">Documentation Reference</a> */
 public class EC2BlockDeviceMapping {
     private String deviceName;
     private List<EC2EBSBlockDevice> ebs;
     private boolean noDevice;
     private String virtualName;
 
-    public EC2BlockDeviceMapping(){
+    public EC2BlockDeviceMapping() {
         this.ebs = new ArrayList<>();
     }
 
@@ -45,7 +46,7 @@ public class EC2BlockDeviceMapping {
         return this;
     }
 
-    public EC2BlockDeviceMapping addEbs(EC2EBSBlockDevice ebd){
+    public EC2BlockDeviceMapping addEbs(EC2EBSBlockDevice ebd) {
         this.ebs.add(ebd);
         return this;
     }

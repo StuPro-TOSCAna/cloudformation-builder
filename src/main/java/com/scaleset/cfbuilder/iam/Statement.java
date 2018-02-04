@@ -3,6 +3,10 @@ package com.scaleset.cfbuilder.iam;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ Constructs a {@code Statement}  to build IAM policies in the {@link PolicyDocument}.
+
+ @see <a href=" https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_statement.html">Documentation Reference</a> */
 public class Statement {
     private String sid;
     private List<String> action;
@@ -14,10 +18,6 @@ public class Statement {
     private List<String> notResource;
     private Object condition;
 
-    /**
-     Constructs a <tt>Statement<tt> to build IAM policies in the <tt>PolicyDocument<tt>.
-     Documentation: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_statement.html
-     */
     public Statement() {
         this.action = new ArrayList<>();
         this.notAction = new ArrayList<>();

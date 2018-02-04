@@ -3,13 +3,15 @@ package com.scaleset.cfbuilder.ec2.instance;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.scaleset.cfbuilder.ec2.Instance;
 import com.scaleset.cfbuilder.ec2.instance.ssmassociation.AssociationParameter;
 
 /**
- Constructs a <tt>SSMAssociation</tt> to specify a Amazon EC2 Systems Manager (SSM) document and parameter values.
- Property of EC2 <tt>Instance</tt>.
- Documentation: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance-ssmassociations.html
- */
+ Constructs a {@code SSMAssociation} to specify a Amazon EC2 Systems Manager (SSM) document and parameter values.
+ <br>
+ Property of EC2 {@link Instance}.
+
+ @see <a href=" https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance-ssmassociations.html">Documentation Reference</a> */
 public class SSMAssociation {
     private List<AssociationParameter> associationParameters;
     private String documentName;
@@ -31,7 +33,7 @@ public class SSMAssociation {
         return this;
     }
 
-    public SSMAssociation addAssociationParameters(AssociationParameter associationParameter){
+    public SSMAssociation addAssociationParameters(AssociationParameter associationParameter) {
         this.associationParameters.add(associationParameter);
         return this;
     }

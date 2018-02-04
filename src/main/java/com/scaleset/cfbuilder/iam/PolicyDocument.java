@@ -3,15 +3,15 @@ package com.scaleset.cfbuilder.iam;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ Constructs a {@code PolicyDocument} representing an IAM policy to be used within {@link Policy} and {@link InstanceProfile}.
+
+ @see <a href=" https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html">Documentation Reference</a> */
 public class PolicyDocument {
     private String version;
     private String id;
     private List<Statement> statement;
 
-    /**
-     Constructs a <tt>PolicyDocument<tt> representing an IAM policy to be used within <tt>Policy<tt> and <tt>InstanceProfile<tt>.
-     Documentation: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html
-     */
     public PolicyDocument() {
         this.statement = new ArrayList<>();
     }

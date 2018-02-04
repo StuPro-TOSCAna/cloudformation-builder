@@ -1,9 +1,11 @@
 package com.scaleset.cfbuilder.ec2.instance;
 
+import com.scaleset.cfbuilder.ec2.Instance;
+
 /**
- Constructs an <tt>EC2MountPoint</tt> to be used as a property of an EC2 <tt>Instance</tt>.
- Documentation: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-mount-point.html
- */
+ Constructs an {@code EC2MountPoint} to be used as a property of an EC2 {@link Instance}.
+
+ @see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-mount-point.html">Documentation Reference</a> */
 public class EC2MountPoint {
     private String device;
     private String volumeId;

@@ -6,10 +6,11 @@ import com.scaleset.cfbuilder.ec2.networkinterface.Ipv6Address;
 import com.scaleset.cfbuilder.ec2.networkinterface.PrivateIpAddressSpecification;
 
 /**
- Describes a <tt>NetworkInterfact</tt> in an EC2 instance. Provided in a list in the NetworkInterfaces property of <tt>AWS::EC2::Instance</tt>.
- Type: <tt>AWS::EC2::NetworkInterface</tt>
- Documentation: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-network-interface.html
- */
+ Describes a {@code NetworkInterface} in an EC2 instance. Provided in a list in the NetworkInterfaces property of EC2 {@link Instance}.
+ <br>
+ Type: {@code AWS::EC2::NetworkInterface}
+
+ @see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-network-interface.html">Documentation Reference</a> */
 @Type("")
 public interface NetworkInterface extends Taggable {
 

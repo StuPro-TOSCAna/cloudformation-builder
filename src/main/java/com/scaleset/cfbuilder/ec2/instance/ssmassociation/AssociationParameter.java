@@ -3,16 +3,19 @@ package com.scaleset.cfbuilder.ec2.instance.ssmassociation;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.scaleset.cfbuilder.ec2.instance.SSMAssociation;
+
 /**
- Constructs an <tt>AssociationParameter</tt> to specify input parameter values for an Amazon EC2 Systems Manager (SSM) document.
- Property of EC2 Instance <tt>SSMAssociation</tt>.
- Documentation: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance-ssmassociations-associationparameters.html
- */
+ Constructs an {@code AssociationParameter} to specify input parameter values for an Amazon EC2 Systems Manager (SSM) document.
+ <br>
+ Property of EC2 Instance {@link SSMAssociation}.
+
+ @see <a href=" https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance-ssmassociations-associationparameters.html">Documentation Reference</a> */
 public class AssociationParameter {
     private String key;
     private List<String> value;
 
-    public AssociationParameter(){
+    public AssociationParameter() {
         this.value = new ArrayList<>();
     }
 

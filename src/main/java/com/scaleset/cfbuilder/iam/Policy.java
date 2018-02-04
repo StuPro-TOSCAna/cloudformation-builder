@@ -8,7 +8,7 @@ import com.scaleset.cfbuilder.core.Resource;
  <br>
  Type: {@code AWS::IAM::Policy}
 
- @see <a href=" https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-policy.html">Documentation Reference</a> */
+ @see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-policy.html">Documentation Reference</a> */
 @Type("AWS::IAM::Policy")
 public interface Policy extends Resource {
 

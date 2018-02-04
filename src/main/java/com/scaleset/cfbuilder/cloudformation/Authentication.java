@@ -38,7 +38,7 @@ public class Authentication {
      Constructs an {@code Authentication{@code  to specify authentication credentials for files or sources specified
      with the {@code AWS::CloudFormation::Init{@code  resource.
      Type: {@code AWS::CloudFormation::Authentication{@code
-     @see <a href=" https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-authentication.html
+     @see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-authentication.html
 
      @param name of this {@code Authentication{@code
      */

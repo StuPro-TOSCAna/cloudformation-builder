@@ -7,7 +7,7 @@ import com.scaleset.cfbuilder.ec2.Instance;
  <br>
  Property of the EC2 {@link Instance} resource.
 
- @see <a href=" https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance-elasticgpuspecification.html">Documentation Reference</a> */
+ @see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance-elasticgpuspecification.html">Documentation Reference</a> */
 public class ElasticGpuSpecification {
     private String type;
 

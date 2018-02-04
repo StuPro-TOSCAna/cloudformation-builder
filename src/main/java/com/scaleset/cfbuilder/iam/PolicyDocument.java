@@ -6,7 +6,7 @@ import java.util.List;
 /**
  Constructs a {@code PolicyDocument} representing an IAM policy to be used within {@link Policy} and {@link InstanceProfile}.
 
- @see <a href=" https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html">Documentation Reference</a> */
+ @see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html">Documentation Reference</a> */
 public class PolicyDocument {
     private String version;
     private String id;

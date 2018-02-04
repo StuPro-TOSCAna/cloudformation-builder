@@ -17,7 +17,7 @@ import com.scaleset.cfbuilder.ec2.networkinterface.Ipv6Address;
  <br>
  Type: {@code AWS::EC2::Instance}
 
- @see <a href=" https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html">Documentation Reference</a> */
+ @see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html">Documentation Reference</a> */
 @Type("AWS::EC2::Instance")
 public interface Instance extends Taggable {
 

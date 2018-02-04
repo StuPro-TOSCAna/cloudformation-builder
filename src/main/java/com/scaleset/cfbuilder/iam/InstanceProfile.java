@@ -10,7 +10,7 @@ import com.scaleset.cfbuilder.ec2.Instance;
  <br>
  Type: {@code AWS::IAM::InstanceProfile}
 
- @see <a href=" https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-instanceprofile.html">Documentation Reference</a> */
+ @see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-instanceprofile.html">Documentation Reference</a> */
 @Type("AWS::IAM::InstanceProfile")
 public interface InstanceProfile extends Resource {
 

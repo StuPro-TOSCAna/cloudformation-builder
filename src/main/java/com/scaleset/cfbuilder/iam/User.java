@@ -8,7 +8,7 @@ import com.scaleset.cfbuilder.core.Resource;
  <br>
  Type: {@code AWS::IAM::User}
 
- @see <a href=" https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-user.html">Documentation Reference</a> */
+ @see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-user.html">Documentation Reference</a> */
 @Type("AWS::IAM::User")
 public interface User extends Resource {
 

@@ -6,7 +6,7 @@ import java.util.List;
 /**
  Constructs a {@code Statement}  to build IAM policies in the {@link PolicyDocument}.
 
- @see <a href=" https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_statement.html">Documentation Reference</a> */
+ @see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_statement.html">Documentation Reference</a> */
 public class Statement {
     private String sid;
     private List<String> action;

@@ -8,7 +8,7 @@ import com.scaleset.cfbuilder.core.Resource;
  <br>
  Type: {@code AWS::IAM::Role}
 
- @see <a href=" https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html">Documentation Reference</a> */
+ @see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html">Documentation Reference</a> */
 @Type("AWS::IAM::Role")
 public interface Role extends Resource {
 

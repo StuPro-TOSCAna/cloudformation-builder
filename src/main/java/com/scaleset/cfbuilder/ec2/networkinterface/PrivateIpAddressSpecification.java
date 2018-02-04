@@ -5,7 +5,7 @@ import com.scaleset.cfbuilder.ec2.NetworkInterface;
 /**
  Constructs a {@code PrivateIpAddressSpecification} to be used in a {@link NetworkInterface}.
 
- @see <a href=" https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-network-interface-privateipspec.html">Documentation Reference</a> */
+ @see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-network-interface-privateipspec.html">Documentation Reference</a> */
 public class PrivateIpAddressSpecification {
 
     private String privateIpAddress;

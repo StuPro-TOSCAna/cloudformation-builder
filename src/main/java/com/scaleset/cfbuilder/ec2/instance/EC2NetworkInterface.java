@@ -10,7 +10,7 @@ import com.scaleset.cfbuilder.ec2.networkinterface.PrivateIpAddressSpecification
 /**
  Constructs a {@code EC2NetworkInterface} to be attached to an EC2 {@link Instance}.
 
- @see <a href=" https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-network-iface-embedded.html">Documentation Reference</a> */
+ @see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-network-iface-embedded.html">Documentation Reference</a> */
 public class EC2NetworkInterface {
     private boolean associatePublicIpAddress;
     private boolean deleteOnTermination;

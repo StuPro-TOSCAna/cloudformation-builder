@@ -11,7 +11,7 @@ import com.scaleset.cfbuilder.ec2.instance.ssmassociation.AssociationParameter;
  <br>
  Property of EC2 {@link Instance}.
 
- @see <a href=" https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance-ssmassociations.html">Documentation Reference</a> */
+ @see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance-ssmassociations.html">Documentation Reference</a> */
 public class SSMAssociation {
     private List<AssociationParameter> associationParameters;
     private String documentName;

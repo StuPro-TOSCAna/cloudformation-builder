@@ -4,7 +4,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.scaleset.cfbuilder.annotations.Type;
 import com.scaleset.cfbuilder.core.Resource;
 
-@Type("EIPAssociation")
+/**
+ Constructs an {@code EipAssociation} to associate an Elastic IP address with an Amazon EC2 {@link Instance}.
+ <br>
+ Type: {@code AWS::EC2::EIPAssociation}
+
+ @see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-eip-association.html">Documentation Reference</a> */
+@Type("AWS::EC2::EIPAssociation")
 public interface EipAssociation {
 
     EipAssociation allocationId(Object value);
@@ -16,5 +22,4 @@ public interface EipAssociation {
     EipAssociation NetworkInterfaceId(Object value);
 
     EipAssociation privateIpAddress(Object value);
-
 }

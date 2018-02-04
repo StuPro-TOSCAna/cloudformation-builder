@@ -6,7 +6,12 @@ import com.scaleset.cfbuilder.annotations.Type;
 import com.scaleset.cfbuilder.core.Resource;
 import com.scaleset.cfbuilder.core.Taggable;
 
+/**
+ Constructs a {@code AutoScalingGroup} to create an Auto Scaling group.
+ <br>
+ Type: {@code AWS::AutoScaling::AutoScalingGroup}
 
+ @see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html">Documentation Reference</a> */
 @Type("AWS::AutoScaling::AutoScalingGroup")
 public interface AutoScalingGroup extends Taggable {
 

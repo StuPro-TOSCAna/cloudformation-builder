@@ -7,6 +7,9 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.scaleset.cfbuilder.core.Fn;
 
+/**
+ Constructs a {@code UserData}, a Base64-encoded MIME user data that is made available to the EC2 {@link Instance}.
+ */
 public class UserData {
 
     @JsonIgnore

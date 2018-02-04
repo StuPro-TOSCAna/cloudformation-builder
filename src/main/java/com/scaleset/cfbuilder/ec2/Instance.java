@@ -45,7 +45,7 @@ public interface Instance extends Taggable {
 
     Instance instanceType(Object value);
 
-    Instance ipv6AddressCount(int value);
+    Instance ipv6AddressCount(Integer value);
 
     Instance ipv6Addresses(Ipv6Address... values);
 

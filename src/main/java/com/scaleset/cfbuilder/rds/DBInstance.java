@@ -23,7 +23,7 @@ public interface DBInstance extends Taggable {
 
     DBInstance dBInstanceClass(String dBInstanceClass);
 
-    DBInstance allocatedStorage(int allocatedStorage);
+    DBInstance allocatedStorage(Integer allocatedStorage);
 
     DBInstance storageType(String storageType);
 

@@ -17,11 +17,11 @@ public interface Volume extends Taggable {
 
     Volume encrypted(Boolean value);
 
-    Volume iops(int value);
+    Volume iops(Integer value);
 
     Volume kmsKeyId(Object value);
 
-    Volume size(int value);
+    Volume size(Integer value);
 
     Volume snapshotId(Object value);
 

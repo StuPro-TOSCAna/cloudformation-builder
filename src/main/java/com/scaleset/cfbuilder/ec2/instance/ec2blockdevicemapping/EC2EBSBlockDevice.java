@@ -9,7 +9,7 @@ import com.scaleset.cfbuilder.ec2.instance.EC2BlockDeviceMapping;
 public class EC2EBSBlockDevice {
     private Boolean deleteOnTermination;
     private Boolean encrypted;
-    private int iops;
+    private Integer iops;
     private String snapshotId;
     private String volumeSize;
     private String volumeType;
@@ -40,15 +40,15 @@ public class EC2EBSBlockDevice {
         return this;
     }
 
-    public int getIops() {
+    public Integer getIops() {
         return iops;
     }
 
-    public void setIops(int iops) {
+    public void setIops(Integer iops) {
         this.iops = iops;
     }
 
-    public EC2EBSBlockDevice iops(int iops) {
+    public EC2EBSBlockDevice iops(Integer iops) {
         this.iops = iops;
         return this;
     }

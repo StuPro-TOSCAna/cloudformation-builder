@@ -16,14 +16,14 @@ public class EC2NetworkInterface {
     private Boolean deleteOnTermination;
     private String description;
     private String deviceIndex;
-    private List<String> groupSet;
+    private List<Object> groupSet;
     private String networkInterfaceId;
-    private int ipv6AddressCount;
+    private Integer ipv6AddressCount;
     private List<Ipv6Address> ipv6Addresses;
     private String privateIpAddress;
     private List<PrivateIpAddressSpecification> privateIpAddresses;
-    private int secondaryPrivateIpAddressCount;
-    private String subnetId;
+    private Integer secondaryPrivateIpAddressCount;
+    private Object subnetId;
 
     public EC2NetworkInterface() {
         this.groupSet = new ArrayList<>();
@@ -83,20 +83,20 @@ public class EC2NetworkInterface {
         return this;
     }
 
-    public List<String> getGroupSet() {
+    public List<Object> getGroupSet() {
         return groupSet;
     }
 
-    public void setGroupSet(List<String> groupSet) {
+    public void setGroupSet(List<Object> groupSet) {
         this.groupSet = groupSet;
     }
 
-    public EC2NetworkInterface groupSet(List<String> groupSet) {
+    public EC2NetworkInterface groupSet(List<Object> groupSet) {
         this.groupSet = groupSet;
         return this;
     }
 
-    public EC2NetworkInterface addGroupSet(String groupID) {
+    public EC2NetworkInterface addGroupSet(Object groupID) {
         this.groupSet.add(groupID);
         return this;
     }
@@ -114,15 +114,15 @@ public class EC2NetworkInterface {
         return this;
     }
 
-    public int getIpv6AddressCount() {
+    public Integer getIpv6AddressCount() {
         return ipv6AddressCount;
     }
 
-    public void setIpv6AddressCount(int ipv6AddressCount) {
+    public void setIpv6AddressCount(Integer ipv6AddressCount) {
         this.ipv6AddressCount = ipv6AddressCount;
     }
 
-    public EC2NetworkInterface ipv6AddressCount(int ipv6AddressCount) {
+    public EC2NetworkInterface ipv6AddressCount(Integer ipv6AddressCount) {
         this.ipv6AddressCount = ipv6AddressCount;
         return this;
     }
@@ -176,29 +176,29 @@ public class EC2NetworkInterface {
         return this;
     }
 
-    public int getSecondaryPrivateIpAddressCount() {
+    public Integer getSecondaryPrivateIpAddressCount() {
         return secondaryPrivateIpAddressCount;
     }
 
-    public void setSecondaryPrivateIpAddressCount(int secondaryPrivateIpAddressCount) {
+    public void setSecondaryPrivateIpAddressCount(Integer secondaryPrivateIpAddressCount) {
         this.secondaryPrivateIpAddressCount = secondaryPrivateIpAddressCount;
     }
 
-    public EC2NetworkInterface secondaryPrivateIpAddressCount(int secondaryPrivateIpAddressCount) {
+    public EC2NetworkInterface secondaryPrivateIpAddressCount(Integer secondaryPrivateIpAddressCount) {
         this.secondaryPrivateIpAddressCount = secondaryPrivateIpAddressCount;
         return this;
     }
 
-    public String getSubnetId() {
+    public Object getSubnetId() {
         return subnetId;
     }
 
-    public EC2NetworkInterface subnetId(String subnetId) {
+    public EC2NetworkInterface subnetId(Object subnetId) {
         this.subnetId = subnetId;
         return this;
     }
 
-    public void setSubnetId(String subnetId) {
+    public void setSubnetId(Object subnetId) {
         this.subnetId = subnetId;
     }
 }

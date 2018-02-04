@@ -18,7 +18,7 @@ public interface NetworkInterface extends Taggable {
 
     NetworkInterface groupSet(Object... values);
 
-    NetworkInterface ipv6AddressCount(int value);
+    NetworkInterface ipv6AddressCount(Integer value);
 
     NetworkInterface ipv6Addresses(Ipv6Address... values);
 
@@ -26,7 +26,7 @@ public interface NetworkInterface extends Taggable {
 
     NetworkInterface privateIpAddresses(PrivateIpAddressSpecification... values);
 
-    NetworkInterface secondaryPrivateIpAddressCount(int value);
+    NetworkInterface secondaryPrivateIpAddressCount(Integer value);
 
     NetworkInterface sourceDestCheck(Boolean value);
 

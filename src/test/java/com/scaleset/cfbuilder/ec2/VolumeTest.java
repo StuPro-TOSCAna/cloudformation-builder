@@ -6,7 +6,8 @@ import com.scaleset.cfbuilder.core.Tag;
 import com.scaleset.cfbuilder.core.Template;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  Test ec2 volumes templates built with the cloudformation builder.
@@ -67,6 +68,16 @@ public class VolumeTest {
         System.err.println(Ebs100IopsTemplateString);
     }
 
+    @Test
+    public void volumeTest() {
+        Template volumeTestTemplate = new Template();
+        new VolumeTestModule().id("").template(volumeTestTemplate).build();
+        String volumeTestTemplateString = volumeTestTemplate.toString(true);
+
+        assertNotNull(volumeTestTemplate);
+        System.err.println(volumeTestTemplateString);
+    }
+
     class EncEbsSnapModule extends Module {
         public void build() {
             resource(Volume.class, "NewVolume")
@@ -89,6 +100,15 @@ public class VolumeTest {
                     .availabilityZone(new Fn("GetAtt",
                             "EC2Instance",
                             "AvailabilityZone"));
+        }
+    }
+
+    class VolumeTestModule extends Module {
+        public void build() {
+            resource(Volume.class, "VolumeName")
+                    .autoEnableIO(true)
+                    .kmsKeyId("kmsKeyIdVal")
+                    .snapshotId("snapshotIdVal");
         }
     }
 }

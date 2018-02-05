@@ -17,7 +17,7 @@ public class EC2NetworkInterface {
     private String description;
     private String deviceIndex;
     private List<Object> groupSet;
-    private String networkInterfaceId;
+    private Object networkInterfaceId;
     private Integer ipv6AddressCount;
     private List<Ipv6Address> ipv6Addresses;
     private String privateIpAddress;
@@ -101,15 +101,15 @@ public class EC2NetworkInterface {
         return this;
     }
 
-    public String getNetworkInterfaceId() {
+    public Object getNetworkInterfaceId() {
         return networkInterfaceId;
     }
 
-    public void setNetworkInterfaceId(String networkInterfaceId) {
+    public void setNetworkInterfaceId(Object networkInterfaceId) {
         this.networkInterfaceId = networkInterfaceId;
     }
 
-    public EC2NetworkInterface networkInterfaceId(String networkInterfaceId) {
+    public EC2NetworkInterface networkInterfaceId(Object networkInterfaceId) {
         this.networkInterfaceId = networkInterfaceId;
         return this;
     }

@@ -1,22 +1,19 @@
 package com.scaleset.cfbuilder.ec2;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.scaleset.cfbuilder.core.Fn;
 import com.scaleset.cfbuilder.core.Module;
 import com.scaleset.cfbuilder.core.Template;
 import com.scaleset.cfbuilder.ec2.instance.EC2BlockDeviceMapping;
 import com.scaleset.cfbuilder.ec2.instance.EC2NetworkInterface;
 import com.scaleset.cfbuilder.ec2.instance.ec2blockdevicemapping.EC2EBSBlockDevice;
-import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  Test ec2 instance templates built with the cloudformation builder.
- Examples taken from <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html">here</a>.
+ Ec2withEbs and autoPubIP examples taken from <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html">here</a>.
  */
 public class InstanceTest {
     private String expectedEc2withEbsTemplateString = "---\n" +
@@ -106,7 +103,7 @@ public class InstanceTest {
     }
 
     class AutoPubIPModule extends Module {
-        public void build(){
+        public void build() {
             EC2NetworkInterface ec2NetworkInterface = new EC2NetworkInterface()
                     .associatePublicIpAddress(true)
                     .deviceIndex("0")
@@ -122,4 +119,11 @@ public class InstanceTest {
                     .networkInterfaces(ec2NetworkInterface);
         }
     }
+
+//    class fullInstanceModule extends Module {
+//        public void build() {
+//            resource(Instance.class, "FullInstance")
+//                    .affinity("")
+//        }
+//    }
 }

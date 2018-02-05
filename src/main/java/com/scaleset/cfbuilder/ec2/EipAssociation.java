@@ -1,6 +1,5 @@
 package com.scaleset.cfbuilder.ec2;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.scaleset.cfbuilder.annotations.Type;
 import com.scaleset.cfbuilder.core.Resource;
 
@@ -11,15 +10,15 @@ import com.scaleset.cfbuilder.core.Resource;
 
  @see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-eip-association.html">Documentation Reference</a> */
 @Type("AWS::EC2::EIPAssociation")
-public interface EipAssociation {
+public interface EipAssociation extends Resource {
 
     EipAssociation allocationId(Object value);
 
-    EipAssociation EIP(Object value);
+    EipAssociation eIP(Object value);
 
     EipAssociation instanceId(Object value);
 
-    EipAssociation NetworkInterfaceId(Object value);
+    EipAssociation networkInterfaceId(Object value);
 
     EipAssociation privateIpAddress(Object value);
 }

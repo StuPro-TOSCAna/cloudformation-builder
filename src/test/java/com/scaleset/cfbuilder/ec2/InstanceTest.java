@@ -3,9 +3,14 @@ package com.scaleset.cfbuilder.ec2;
 import com.scaleset.cfbuilder.core.Fn;
 import com.scaleset.cfbuilder.core.Module;
 import com.scaleset.cfbuilder.core.Template;
+import com.scaleset.cfbuilder.ec2.instance.CreditSpecification;
 import com.scaleset.cfbuilder.ec2.instance.EC2BlockDeviceMapping;
+import com.scaleset.cfbuilder.ec2.instance.EC2MountPoint;
 import com.scaleset.cfbuilder.ec2.instance.EC2NetworkInterface;
+import com.scaleset.cfbuilder.ec2.instance.ElasticGpuSpecification;
+import com.scaleset.cfbuilder.ec2.instance.SSMAssociation;
 import com.scaleset.cfbuilder.ec2.instance.ec2blockdevicemapping.EC2EBSBlockDevice;
+import com.scaleset.cfbuilder.ec2.instance.ssmassociation.AssociationParameter;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -78,6 +83,16 @@ public class InstanceTest {
         System.err.println(autoPubIPTemplateString);
     }
 
+    @Test
+    public void testProperties() {
+        Template testPropertiesTemplate = new Template();
+        new TestPropertiesModule().id("").template(testPropertiesTemplate).build();
+        String autoPubIPTemplateString = testPropertiesTemplate.toString(true);
+
+        assertNotNull(testPropertiesTemplate);
+        System.err.println(autoPubIPTemplateString);
+    }
+
     class Ec2withEbsModule extends Module {
         public void build() {
             this.template.setDescription("Ec2 block device mapping");
@@ -120,10 +135,39 @@ public class InstanceTest {
         }
     }
 
-//    class fullInstanceModule extends Module {
-//        public void build() {
-//            resource(Instance.class, "FullInstance")
-//                    .affinity("")
-//        }
-//    }
+    class TestPropertiesModule extends Module {
+        public void build() {
+            CreditSpecification creditSpecification = new CreditSpecification().cPUCredits("100");
+            creditSpecification.setcPUCredits(creditSpecification.getcPUCredits());
+            ElasticGpuSpecification elasticGpuSpecification = new ElasticGpuSpecification().type("abc");
+            elasticGpuSpecification.setType(elasticGpuSpecification.getType());
+            EC2EBSBlockDevice ec2EBSBlockDevice = new EC2EBSBlockDevice()
+                    .deleteOnTermination(false)
+                    .iops(199)
+                    .volumeSize("volumeSizeVal")
+                    .volumeType("volumeTypeVal")
+                    .encrypted(true)
+                    .snapshotId("snapshotIdVal");
+            EC2BlockDeviceMapping ec2BlockDeviceMapping = new EC2BlockDeviceMapping()
+                    .deviceName("deviceNameVal")
+                    .noDevice(false)
+                    .ebs(ec2EBSBlockDevice)
+                    .virtualName("virtualNameVal");
+            EC2MountPoint ec2MountPoint = new EC2MountPoint()
+                    .device("deviceVal")
+                    .volumeId("volumeIdVal");
+            AssociationParameter associationParameter = new AssociationParameter()
+                    .addValue("valueVal")
+                    .key("keyVal");
+            SSMAssociation ssmAssociation = new SSMAssociation()
+                    .documentName("documentNameVal")
+                    .addAssociationParameters(associationParameter);
+            resource(Instance.class, "Ec2Test")
+                    .creditSpecification(creditSpecification)
+                    .elasticGpuSpecifications(elasticGpuSpecification)
+                    .blockDeviceMappings(ec2BlockDeviceMapping)
+                    .volumes(ec2MountPoint)
+                    .ssmAssociations(ssmAssociation);
+        }
+    }
 }

@@ -32,7 +32,10 @@ public class IamTest {
                     .addNotAction("notActionVal")
                     .addNotResource("notResourceVal")
                     .principal(principal)
-                    .notPrincipal(principal);
+                    .notPrincipal(principal)
+                    .effect("effectVal")
+                    .sid("sidVal")
+                    .conditon("conditionVal");
             PolicyDocument policyDocument = new PolicyDocument()
                     .version("versionVal")
                     .id("idVal")

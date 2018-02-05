@@ -162,6 +162,11 @@ public class InstanceTest {
             SSMAssociation ssmAssociation = new SSMAssociation()
                     .documentName("documentNameVal")
                     .addAssociationParameters(associationParameter);
+            resource(SecurityGroupIngress.class, "SecurityGroupIngressName")
+                    .cidrIp("cidrIpVal")
+                    .groupName("grouNameVal")
+                    .sourceSecurityGroupName("sourceSecurityGroupNameVal")
+                    .sourceSecurityGroupOwnerId("sourceSecurityGroupOwnerIdVal");
             resource(Instance.class, "Ec2Test")
                     .creditSpecification(creditSpecification)
                     .elasticGpuSpecifications(elasticGpuSpecification)

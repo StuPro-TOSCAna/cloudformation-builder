@@ -5,6 +5,12 @@ import com.scaleset.cfbuilder.core.Resource;
 
 import java.util.function.Consumer;
 
+/**
+ Constructs a {@code SecurityGroup} to create an an Amazon EC2 security group.
+ <br>
+ Type: {@code AWS::EC2::SecurityGroup}
+
+ @see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html">Documentation Reference</href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html"> */
 @Type("AWS::EC2::SecurityGroup")
 public interface SecurityGroup extends Resource {
 

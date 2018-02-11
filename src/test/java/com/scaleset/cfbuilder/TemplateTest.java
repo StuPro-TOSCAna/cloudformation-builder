@@ -51,7 +51,6 @@ public class TemplateTest extends Assert {
             Object keyName = template.ref("KeyName");
             Object imageId = template.ref("ImageId");
             Object az = template.ref("MyAZ");
-            Object instanceProfile = ref("InstanceProfile");
             Object vpcId = template.ref("VpcId");
 
             SecurityGroup securityGroup = resource(SecurityGroup.class, "SecurityGroup")
@@ -71,7 +70,6 @@ public class TemplateTest extends Assert {
                     .availabilityZone(az)
                     .keyName(keyName)
                     .imageId(imageId)
-                    .instanceProfile(instanceProfile)
                     .instanceType(instanceType)
                     .securityGroupIds(securityGroup);
 

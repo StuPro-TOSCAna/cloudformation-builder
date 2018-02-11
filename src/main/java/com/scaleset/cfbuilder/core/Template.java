@@ -65,6 +65,14 @@ public class Template {
         this.version = version;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Parameter numParam(String id) {
         Parameter result = new Parameter().id(id).type("Number");
         parameters.put(id, result);

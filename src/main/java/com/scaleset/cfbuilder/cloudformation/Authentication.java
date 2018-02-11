@@ -6,7 +6,14 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.scaleset.cfbuilder.annotations.Type;
+import com.scaleset.cfbuilder.ec2.metadata.CFNInit;
 
+/**
+ Constructs an {@code Authentication} to specify authentication credentials for files or sources specified with the {@link CFNInit} resource.
+ <br>
+ Type: {@code AWS::CloudFormation::Authentication}
+
+ @see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-authentication.html>Documentation Reference</a> */
 @Type("AWS::CloudFormation::Authentication")
 public class Authentication {
 
@@ -34,14 +41,6 @@ public class Authentication {
     @JsonIgnore
     private String name;
 
-    /**
-     Constructs an <tt>Authentication<tt> to specify authentication credentials for files or sources specified
-     with the <tt>AWS::CloudFormation::Init<tt> resource.
-     Type: <tt>AWS::CloudFormation::Authentication<tt>
-     Documentation: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-authentication.html
-
-     @param name of this <tt>Authentication<tt>
-     */
     public Authentication(String name) {
         this.name = name;
         this.buckets = new ArrayList<>();

@@ -4,6 +4,12 @@ import com.scaleset.cfbuilder.annotations.Type;
 import com.scaleset.cfbuilder.core.Taggable;
 import com.scaleset.cfbuilder.ec2.SecurityGroup;
 
+/**
+ Constructs a {@code DBInstance} to create an Amazon Relational Database Service (Amazon RDS) DB instance.
+ <br>
+ Type: {@code AWS::RDS::DBInstance}
+
+ @see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html">Documentation Reference</a> */
 @Type("AWS::RDS::DBInstance")
 public interface DBInstance extends Taggable {
 
@@ -17,7 +23,7 @@ public interface DBInstance extends Taggable {
 
     DBInstance dBInstanceClass(String dBInstanceClass);
 
-    DBInstance allocatedStorage(int allocatedStorage);
+    DBInstance allocatedStorage(Integer allocatedStorage);
 
     DBInstance storageType(String storageType);
 
@@ -27,5 +33,4 @@ public interface DBInstance extends Taggable {
         tag("Name", name);
         return this;
     }
-
 }

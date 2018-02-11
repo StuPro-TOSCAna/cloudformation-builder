@@ -33,9 +33,9 @@ public class CFNFile {
     public String id;
 
     /**
-     Creates a <tt>CFNFile<tt> with the given id.
+     Creates a {@code CFNFile{@code  with the given id.
 
-     @param id for the <tt>CFNFile<tt> to be created
+     @param id for the {@code CFNFile{@code  to be created
      */
     public CFNFile(String id) {
         this.id = id;

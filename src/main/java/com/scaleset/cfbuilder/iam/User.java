@@ -4,10 +4,11 @@ import com.scaleset.cfbuilder.annotations.Type;
 import com.scaleset.cfbuilder.core.Resource;
 
 /**
- Constructs a <tt>User<tt> to create a user in your CloudFormation template.
- Type: <tt>AWS::IAM::User<tt>
- Documentation: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-user.html
- */
+ Constructs a {@code User} to create a user in your CloudFormation template.
+ <br>
+ Type: {@code AWS::IAM::User}
+
+ @see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-user.html">Documentation Reference</a> */
 @Type("AWS::IAM::User")
 public interface User extends Resource {
 

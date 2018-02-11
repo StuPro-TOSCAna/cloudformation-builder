@@ -121,7 +121,7 @@ public class MetadataTest {
                     .path("/")
                     .assumeRolePolicyDocument("PolicyContent");
 
-            List resourceList = new ArrayList<>();
+            List<String> resourceList = new ArrayList<>();
             resourceList.add("ec2.amazonaws.com");
 
             Principal principal = new Principal().principal("Service", resourceList);

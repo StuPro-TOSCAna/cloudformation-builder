@@ -18,7 +18,8 @@ import static org.junit.Assert.assertNotNull;
 
 /**
  Test ec2 instance templates built with the cloudformation builder.
- Ec2withEbs and autoPubIP examples taken from <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html">here</a>.
+ Ec2withEbs and autoPubIP examples taken from
+ <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html">here</a>.
  */
 public class InstanceTest {
     private String expectedEc2withEbsTemplateString = "---\n" +

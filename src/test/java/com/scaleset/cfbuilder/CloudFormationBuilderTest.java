@@ -15,7 +15,7 @@ public class CloudFormationBuilderTest extends Module {
     @Test
     public void testTemplateBuilding() throws Exception {
         Template lampTemplate = new Template();
-        
+
         new CloudFormationBuilderTest.TestModule().id("").template(lampTemplate).build();
 
         assertNotNull(lampTemplate);
@@ -24,17 +24,18 @@ public class CloudFormationBuilderTest extends Module {
     }
 
     class TestModule extends Module {
-        private static final String KEYNAME_DESCRIPTION = "Name of an existing EC2 KeyPair to enable SSH access to the instances";
+        private static final String KEYNAME_DESCRIPTION = "Name of an existing EC2 KeyPair to enable SSH access to " +
+                "the instances";
         private static final String KEYNAME_TYPE = "AWS::EC2::KeyPair::KeyName";
         private static final String KEYNAME_CONSTRAINT_DESCRIPTION = "must be the name of an existing EC2 KeyPair.";
 
-        public void build(){
-            
+        public void build() {
+
             Parameter keyName = (Parameter) option("KeyName").orElseGet(
-                () -> strParam("KeyName")
-                    .type(KEYNAME_TYPE)
-                    .description(KEYNAME_DESCRIPTION)
-                    .constraintDescription(KEYNAME_CONSTRAINT_DESCRIPTION));
+                    () -> strParam("KeyName")
+                            .type(KEYNAME_TYPE)
+                            .description(KEYNAME_DESCRIPTION)
+                            .constraintDescription(KEYNAME_CONSTRAINT_DESCRIPTION));
 
             Object cidrIp = "0.0.0.0/0";
             Object keyNameVar = template.ref("KeyName");
@@ -49,10 +50,10 @@ public class CloudFormationBuilderTest extends Module {
                     .ingress(ingress -> ingress.sourceSecurityGroupName(webServerSecurityGroupName), "tcp", 3306);
 
             Instance webServerInstance = resource(Instance.class, "WebServerInstance")
-                .imageId("ami-0def3275")
-                .instanceType("t2.micro")
-                .securityGroupIds(webServerSecurityGroup)
-                .keyName(keyNameVar);
+                    .imageId("ami-0def3275")
+                    .instanceType("t2.micro")
+                    .securityGroupIds(webServerSecurityGroup)
+                    .keyName(keyNameVar);
 
             resource(DBInstance.class, "MySQLDatabase")
                     .engine("MySQL")

@@ -14,7 +14,14 @@ public interface Role extends Resource {
 
     Role path(Object value);
 
-    Role assumeRolePolicyDocument(Object value);
+    /**
+     required
+     */
+    Role assumeRolePolicyDocument(AssumeRolePolicyDocument assumeRolePolicyDocument);
 
     Role policies(Object... policies);
+
+    Role managedPolicyArns(String... values);
+
+    Role roleName(String value);
 }

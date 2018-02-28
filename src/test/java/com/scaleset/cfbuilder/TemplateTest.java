@@ -39,7 +39,7 @@ public class TemplateTest extends Assert {
 
     class TestModule extends Module {
 
-        public void build(){
+        public void build() {
 
             Object instanceType = option("instanceType").orElseGet(
                     () -> strParam("InstanceType").defaultValue("m1.small").description(ns("Instance") + " instance type"));

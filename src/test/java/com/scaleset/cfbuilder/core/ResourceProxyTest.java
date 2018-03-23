@@ -21,6 +21,4 @@ public class ResourceProxyTest extends Assert {
         String json = mapper.writeValueAsString(r);
         assertNotNull(json);
     }
-
-
 }

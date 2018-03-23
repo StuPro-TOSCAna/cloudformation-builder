@@ -12,7 +12,8 @@ import static org.junit.Assert.assertNotNull;
 
 /**
  Test templates using all {@code AWS::EC2} types built with the cloudformation builder.
- Examples taken from <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/quickref-ec2.html">here</a>.
+ Examples taken from <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/quickref-ec2.html">here
+ </a>.
  */
 public class Ec2Test {
     private String expectedVpcInstanceWithEniTemplateString = "---\n" +

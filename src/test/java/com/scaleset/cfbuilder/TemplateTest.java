@@ -4,9 +4,7 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.scaleset.cfbuilder.autoscaling.AutoScalingGroup;
-import com.scaleset.cfbuilder.autoscaling.AutoScalingTag;
 import com.scaleset.cfbuilder.core.CloudFormationJsonModule;
 import com.scaleset.cfbuilder.core.Module;
 import com.scaleset.cfbuilder.core.Template;
@@ -34,15 +32,15 @@ public class TemplateTest extends Assert {
         Template template = mapper.readValue(t.toString(false), Template.class);
         assertNotNull(template);
         System.err.println(template.toString(false));
-
     }
 
     class TestModule extends Module {
 
-        public void build(){
+        public void build() {
 
             Object instanceType = option("instanceType").orElseGet(
-                    () -> strParam("InstanceType").defaultValue("m1.small").description(ns("Instance") + " instance type"));
+                    () -> strParam("InstanceType").defaultValue("m1.small").description(ns("Instance") + " instance " +
+                            "type"));
             Object nodeCount = option("nodeCount").orElseGet(
                     () -> numParam("NodeCount").defaultValue(2).description("Number of elasticsearch nodes to create"));
 
@@ -77,5 +75,4 @@ public class TemplateTest extends Assert {
                     .metricsCollection("1Minute", "GroupMinSize", "GroupMaxSize");
         }
     }
-
 }

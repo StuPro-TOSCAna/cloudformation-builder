@@ -11,7 +11,8 @@ import static org.junit.Assert.assertNotNull;
 
 /**
  Test ec2 volumes templates built with the cloudformation builder.
- Examples taken from <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ebs-volume.html">here</a>.
+ Examples taken from
+ <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ebs-volume.html">here</a>.
  */
 public class VolumeTest {
     private String expectedEncEbsSnapTemplateString = "---\n" +

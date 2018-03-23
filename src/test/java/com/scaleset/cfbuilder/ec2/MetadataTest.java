@@ -1,4 +1,4 @@
-package com.scaleset.cfbuilder;
+package com.scaleset.cfbuilder.ec2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,9 +7,6 @@ import com.scaleset.cfbuilder.cloudformation.Authentication;
 import com.scaleset.cfbuilder.core.Fn;
 import com.scaleset.cfbuilder.core.Module;
 import com.scaleset.cfbuilder.core.Template;
-import com.scaleset.cfbuilder.ec2.Instance;
-import com.scaleset.cfbuilder.ec2.SecurityGroup;
-import com.scaleset.cfbuilder.ec2.UserData;
 import com.scaleset.cfbuilder.ec2.metadata.CFNCommand;
 import com.scaleset.cfbuilder.ec2.metadata.CFNFile;
 import com.scaleset.cfbuilder.ec2.metadata.CFNInit;

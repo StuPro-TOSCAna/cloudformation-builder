@@ -6,7 +6,7 @@ import org.junit.Test;
 public class FnTest {
 
     @Test
-    public void testFn(){
+    public void testFn() {
         Fn fn = Fn.fnGetAtt("mydb", "Endpoint.Address");
         String yaml = fn.toString(true);
         System.out.println(yaml);

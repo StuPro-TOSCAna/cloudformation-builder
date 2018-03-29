@@ -15,7 +15,7 @@ public class OptionSetting {
     private String namespace;
     private String optionName;
     private String resourceName;
-    private String value;
+    private Object value;
 
     public OptionSetting(String namespace, String optionName) {
         this.namespace = namespace;
@@ -49,11 +49,11 @@ public class OptionSetting {
         return this;
     }
 
-    public String getValue() {
+    public Object getValue() {
         return value;
     }
 
-    public OptionSetting setValue(String value) {
+    public OptionSetting setValue(Object value) {
         this.value = value;
         return this;
     }

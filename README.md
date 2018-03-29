@@ -12,20 +12,22 @@ Quick Start
 
 ### Dependency
 
+Use [jitpack](jitpack.io) to import this project as a maven dependency.
 ```xml
 <dependency>
-    <groupId>com.scaleset</groupId>
+    <groupId>com.github.StuPro-TOSCAna</groupId>
     <artifactId>cloudformation-builder</artifactId>
-    <version>0.2.0</version>
+    <version>{releaseVersion/commitHash}</version>
 </dependency>
 ```
+Use a release version or simply the hash of a commit to specify the version.
 
 ### Example
 
 ```java
     class TestModule extends Module {
 
-        public void build() throws Exception {
+        public void build() {
 
             Object instanceType = option("instanceType").orElseGet(
                     () -> strParam("InstanceType").defaultValue("m1.small").description(ns("Instance") + " instance type"));
@@ -64,6 +66,9 @@ Quick Start
     }
 
 ```
+
+Example is taken from [test](/src/test/java/com/scaleset/cfbuilder/TemplateTest.java).
+See `/src/test/java/com/scaleset/cfbuilder/` for more tests containing examples that you can use.
 
 ## Contributing
 See our [contribution guidelines](CONTRIBUTING.md) for detailed information on how to contribute to the cloudformation-builder.

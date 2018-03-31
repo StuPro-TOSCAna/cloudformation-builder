@@ -24,51 +24,59 @@ Use a release version or simply the hash of a commit to specify the version.
 
 ### Example
 
+CloudFormation templates are built within a so-called `Module`. This module gets filled with all the CloudFormation resources needed to build the template.
+
+The following is a quick example on how a CloudFormation template is built with the CloudFormation Builder:
+
 ```java
-    class TestModule extends Module {
+class Ec2withEbsModule extends Module {
+    public void build() {
+        this.template.setDescription("Ec2 block device mapping");
 
-        public void build() {
+        EC2EBSBlockDevice ec2EBSBlockDeviceA = new EC2EBSBlockDevice()
+                .volumeType("io1")
+                .iops(200)
+                .deleteOnTermination(false)
+                .volumeSize("20");
+        EC2BlockDeviceMapping ec2BlockDeviceMappingA = new EC2BlockDeviceMapping()
+                .deviceName("/dev/sdm")
+                .ebs(ec2EBSBlockDeviceA);
 
-            Object instanceType = option("instanceType").orElseGet(
-                    () -> strParam("InstanceType").defaultValue("m1.small").description(ns("Instance") + " instance type"));
-            Object nodeCount = option("nodeCount").orElseGet(
-                    () -> numParam("NodeCount").defaultValue(2).description("Number of elasticsearch nodes to create"));
+        EC2BlockDeviceMapping ec2BlockDeviceMappingB = new EC2BlockDeviceMapping()
+                .deviceName("/dev/sdk")
+                .noDevice(false);
 
-            Object clusterName = option("clusterName").orElse("elasticsearch");
-            Object cidrIp = template.ref("OpenCidrIp");
-            Object keyName = template.ref("KeyName");
-            Object imageId = template.ref("ImageId");
-            Object az = template.ref("MyAZ");
-            Object instanceProfile = ref("InstanceProfile");
-            Object vpcId = template.ref("VpcId");
-
-            SecurityGroup securityGroup = resource(SecurityGroup.class, "SecurityGroup")
-                    .vpcId(vpcId)
-                    .ingress(ingress -> ingress.cidrIp(cidrIp), "tcp", 22, 9200, 9300, range(27018, 27019));
-
-            Object groupId = securityGroup.fnGetAtt("GroupId");
-
-            resource(SecurityGroupIngress.class, "SelfReferenceIngress")
-                    .sourceSecurityGroupId(groupId)
-                    .groupId(groupId)
-                    .ipProtocol("tcp")
-                    .port(9300);
-
-            resource(Instance.class, "Instance")
-                    .name(ns("Instance"))
-                    .availabilityZone(az)
-                    .keyName(keyName)
-                    .imageId(imageId)
-                    .instanceProfile(instanceProfile)
-                    .instanceType(instanceType)
-                    .securityGroupIds(securityGroup);
-        }
+        resource(Instance.class, "MyEC2Instance")
+                .imageId("ami-79fd7eee")
+                .keyName("testkey")
+                .blockDeviceMappings(ec2BlockDeviceMappingA, ec2BlockDeviceMappingB);
     }
-
+}
 ```
 
-Example is taken from [test](/src/test/java/com/scaleset/cfbuilder/TemplateTest.java).
-See `/src/test/java/com/scaleset/cfbuilder/` for more tests containing examples that you can use.
+> **Note**: The example is taken from the [`InstanceTest`](/src/test/java/com/scaleset/cfbuilder/InstanceTest.java). See `/src/test/java/com/scaleset/cfbuilder/` for more tests containing examples that you can use.
+
+This `Ec2withEbsModule` results in the following CloudFormation template:
+
+```yaml
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Ec2 block device mapping"
+Resources:
+  MyEC2Instance:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      ImageId: "ami-79fd7eee"
+      KeyName: "testkey"
+      BlockDeviceMappings:
+      - DeviceName: "/dev/sdm"
+        Ebs:
+          DeleteOnTermination: false
+          Iops: 200
+          VolumeSize: "20"
+          VolumeType: "io1"
+      - DeviceName: "/dev/sdk"
+        NoDevice: false
+```
 
 ## Contributing
 See our [contribution guidelines](CONTRIBUTING.md) for detailed information on how to contribute to the cloudformation-builder.
